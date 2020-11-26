@@ -14,11 +14,11 @@ import (
 	"github.com/iotaledger/hive.go/iputils"
 	"github.com/iotaledger/hive.go/network"
 
-	"github.com/gohornet/hornet/pkg/metrics"
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	"github.com/gohornet/hornet/pkg/protocol"
-	"github.com/gohornet/hornet/pkg/protocol/sting"
-	"github.com/gohornet/hornet/pkg/utils"
+	"github.com/massyu/hornet/pkg/metrics"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/protocol"
+	"github.com/massyu/hornet/pkg/protocol/sting"
+	"github.com/massyu/hornet/pkg/utils"
 )
 
 // ConnectionOrigin defines whether a connection was initialized inbound or outbound.

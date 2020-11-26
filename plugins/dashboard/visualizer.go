@@ -5,16 +5,16 @@ import (
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/node"
 
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	tanglePackage "github.com/gohornet/hornet/pkg/model/tangle"
-	tanglemodel "github.com/gohornet/hornet/pkg/model/tangle"
-	"github.com/gohornet/hornet/pkg/shutdown"
-	"github.com/gohornet/hornet/pkg/tipselect"
-	"github.com/gohornet/hornet/pkg/whiteflag"
-	coordinatorPlugin "github.com/gohornet/hornet/plugins/coordinator"
-	"github.com/gohornet/hornet/plugins/tangle"
-	"github.com/gohornet/hornet/plugins/urts"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	tanglePackage "github.com/massyu/hornet/pkg/model/tangle"
+	tanglemodel "github.com/massyu/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/shutdown"
+	"github.com/massyu/hornet/pkg/tipselect"
+	"github.com/massyu/hornet/pkg/whiteflag"
+	coordinatorPlugin "github.com/massyu/hornet/plugins/coordinator"
+	"github.com/massyu/hornet/plugins/tangle"
+	"github.com/massyu/hornet/plugins/urts"
 )
 
 const (

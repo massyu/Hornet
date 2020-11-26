@@ -6,7 +6,7 @@ import (
 
 	"github.com/iotaledger/hive.go/objectstorage"
 
-	"github.com/gohornet/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/model/milestone"
 )
 
 type UnconfirmedTx struct {

@@ -8,13 +8,13 @@ import (
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/hive.go/node"
 
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/pkg/dag"
-	"github.com/gohornet/hornet/pkg/model/tangle"
-	"github.com/gohornet/hornet/pkg/shutdown"
-	"github.com/gohornet/hornet/pkg/tipselect"
-	"github.com/gohornet/hornet/pkg/whiteflag"
-	tangleplugin "github.com/gohornet/hornet/plugins/tangle"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/dag"
+	"github.com/massyu/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/shutdown"
+	"github.com/massyu/hornet/pkg/tipselect"
+	"github.com/massyu/hornet/pkg/whiteflag"
+	tangleplugin "github.com/massyu/hornet/plugins/tangle"
 )
 
 var (

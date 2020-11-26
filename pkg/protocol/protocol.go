@@ -13,10 +13,10 @@ import (
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/syncutils"
 
-	"github.com/gohornet/hornet/pkg/protocol/handshake"
-	"github.com/gohornet/hornet/pkg/protocol/message"
-	"github.com/gohornet/hornet/pkg/protocol/sting"
-	"github.com/gohornet/hornet/pkg/protocol/tlv"
+	"github.com/massyu/hornet/pkg/protocol/handshake"
+	"github.com/massyu/hornet/pkg/protocol/message"
+	"github.com/massyu/hornet/pkg/protocol/sting"
+	"github.com/massyu/hornet/pkg/protocol/tlv"
 )
 
 var (

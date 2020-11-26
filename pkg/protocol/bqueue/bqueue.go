@@ -1,12 +1,12 @@
 package bqueue
 
 import (
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/peering"
-	"github.com/gohornet/hornet/pkg/peering/peer"
-	"github.com/gohornet/hornet/pkg/protocol/helpers"
-	"github.com/gohornet/hornet/pkg/protocol/rqueue"
-	"github.com/gohornet/hornet/pkg/protocol/sting"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/peering"
+	"github.com/massyu/hornet/pkg/peering/peer"
+	"github.com/massyu/hornet/pkg/protocol/helpers"
+	"github.com/massyu/hornet/pkg/protocol/rqueue"
+	"github.com/massyu/hornet/pkg/protocol/sting"
 )
 
 // Broadcast defines a transaction and requested transaction hash which should be broadcasted.

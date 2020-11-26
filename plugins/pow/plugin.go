@@ -8,9 +8,9 @@ import (
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/hive.go/node"
 
-	"github.com/gohornet/hornet/pkg/config"
-	powpackage "github.com/gohornet/hornet/pkg/pow"
-	"github.com/gohornet/hornet/pkg/shutdown"
+	"github.com/massyu/hornet/pkg/config"
+	powpackage "github.com/massyu/hornet/pkg/pow"
+	"github.com/massyu/hornet/pkg/shutdown"
 )
 
 const (

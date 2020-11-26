@@ -15,8 +15,8 @@ import (
 
 	"github.com/iotaledger/hive.go/batchhasher"
 
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/plugins/pow"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/plugins/pow"
 )
 
 func init() {

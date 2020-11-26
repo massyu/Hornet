@@ -4,9 +4,9 @@ import (
 	"github.com/iotaledger/iota.go/consts"
 	"github.com/iotaledger/iota.go/trinary"
 
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	"github.com/gohornet/hornet/pkg/t6b1"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/t6b1"
 )
 
 func (bundle *Bundle) setMilestone(milestone bool) {

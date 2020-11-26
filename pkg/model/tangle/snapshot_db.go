@@ -10,8 +10,8 @@ import (
 
 	"github.com/iotaledger/hive.go/kvstore"
 
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/milestone"
 )
 
 var (

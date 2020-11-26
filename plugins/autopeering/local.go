@@ -13,9 +13,9 @@ import (
 	"github.com/iotaledger/hive.go/kvstore/bolt"
 	"github.com/iotaledger/hive.go/logger"
 
-	"github.com/gohornet/hornet/pkg/autopeering/services"
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/autopeering/services"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/model/tangle"
 )
 
 type Local struct {

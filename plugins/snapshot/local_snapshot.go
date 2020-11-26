@@ -16,13 +16,13 @@ import (
 
 	"github.com/iotaledger/hive.go/daemon"
 
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/pkg/dag"
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	"github.com/gohornet/hornet/pkg/model/tangle"
-	"github.com/gohornet/hornet/plugins/gossip"
-	tanglePlugin "github.com/gohornet/hornet/plugins/tangle"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/dag"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/plugins/gossip"
+	tanglePlugin "github.com/massyu/hornet/plugins/tangle"
 )
 
 const (

@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/tangle"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/iotaledger/iota.go/consts"

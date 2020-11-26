@@ -10,12 +10,12 @@ import (
 	"github.com/iotaledger/iota.go/bundle"
 	"github.com/iotaledger/iota.go/consts"
 
-	"github.com/gohornet/hornet/pkg/model/coordinator"
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	"github.com/gohornet/hornet/pkg/model/tangle"
-	"github.com/gohornet/hornet/pkg/testsuite/utils"
-	"github.com/gohornet/hornet/pkg/whiteflag"
+	"github.com/massyu/hornet/pkg/model/coordinator"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/testsuite/utils"
+	"github.com/massyu/hornet/pkg/whiteflag"
 )
 
 const (

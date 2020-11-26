@@ -12,7 +12,7 @@ import (
 
 	"github.com/iotaledger/hive.go/node"
 
-	"github.com/gohornet/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/config"
 )
 
 var (

@@ -10,12 +10,12 @@ import (
 	"time"
 
 	"github.com/go-echarts/go-echarts/charts"
-	"github.com/gohornet/hornet/pkg/tipselect"
-	"github.com/gohornet/hornet/plugins/dashboard"
-	"github.com/gohornet/hornet/plugins/metrics"
-	tangleplugin "github.com/gohornet/hornet/plugins/tangle"
 	"github.com/gorilla/websocket"
 	"github.com/iotaledger/hive.go/websockethub"
+	"github.com/massyu/hornet/pkg/tipselect"
+	"github.com/massyu/hornet/plugins/dashboard"
+	"github.com/massyu/hornet/plugins/metrics"
+	tangleplugin "github.com/massyu/hornet/plugins/tangle"
 )
 
 const (

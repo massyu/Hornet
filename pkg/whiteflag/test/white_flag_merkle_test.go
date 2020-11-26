@@ -12,8 +12,8 @@ import (
 
 	"github.com/iotaledger/iota.go/trinary"
 
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/whiteflag"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/whiteflag"
 )
 
 func TestWhiteFlagMerkleTreeHash(t *testing.T) {

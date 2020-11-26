@@ -14,9 +14,9 @@ import (
 	"github.com/iotaledger/hive.go/node"
 	"github.com/iotaledger/hive.go/timeutil"
 
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/pkg/profile"
-	"github.com/gohornet/hornet/pkg/shutdown"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/profile"
+	"github.com/massyu/hornet/pkg/shutdown"
 )
 
 var (
@@ -63,7 +63,7 @@ func configure(plugin *node.Plugin) {
 	log = logger.NewLogger(plugin.Name)
 
 	githubTag = &latest.GithubTag{
-		Owner:             "gohornet",
+		Owner:             "massyu",
 		Repository:        "hornet",
 		FixVersionStrFunc: fixVersion,
 		TagFilterFunc:     includeVersionInCheck,
@@ -120,7 +120,7 @@ func checkLatestVersion() {
 	}
 
 	if res.Outdated {
-		log.Infof("Update to %s available on https://github.com/gohornet/hornet/releases/latest", res.Current)
+		log.Infof("Update to %s available on https://github.com/massyu/hornet/releases/latest", res.Current)
 		LatestGithubVersion = res.Current
 	}
 }

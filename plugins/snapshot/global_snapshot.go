@@ -11,11 +11,11 @@ import (
 	"github.com/iotaledger/iota.go/address"
 	"github.com/iotaledger/iota.go/consts"
 
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	"github.com/gohornet/hornet/pkg/model/tangle"
-	tanglePlugin "github.com/gohornet/hornet/plugins/tangle"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/model/tangle"
+	tanglePlugin "github.com/massyu/hornet/plugins/tangle"
 )
 
 func loadSpentAddresses(filePathSpent string) (int, error) {

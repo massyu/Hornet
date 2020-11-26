@@ -20,9 +20,9 @@ import (
 	"github.com/iotaledger/hive.go/netutil"
 	"github.com/iotaledger/hive.go/node"
 
-	"github.com/gohornet/hornet/pkg/autopeering/services"
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/plugins/peering"
+	"github.com/massyu/hornet/pkg/autopeering/services"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/plugins/peering"
 )
 
 const (

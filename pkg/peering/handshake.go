@@ -8,9 +8,9 @@ import (
 	"github.com/iotaledger/hive.go/iputils"
 	"github.com/pkg/errors"
 
-	"github.com/gohornet/hornet/pkg/peering/peer"
-	"github.com/gohornet/hornet/pkg/protocol"
-	"github.com/gohornet/hornet/pkg/protocol/handshake"
+	"github.com/massyu/hornet/pkg/peering/peer"
+	"github.com/massyu/hornet/pkg/protocol"
+	"github.com/massyu/hornet/pkg/protocol/handshake"
 )
 
 func (m *Manager) setupHandshakeEventHandlers(p *peer.Peer) {

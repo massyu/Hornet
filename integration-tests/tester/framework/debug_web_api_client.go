@@ -9,8 +9,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/gohornet/hornet/pkg/peering/peer"
-	"github.com/gohornet/hornet/plugins/webapi"
+	"github.com/massyu/hornet/pkg/peering/peer"
+	"github.com/massyu/hornet/plugins/webapi"
 )
 
 var (

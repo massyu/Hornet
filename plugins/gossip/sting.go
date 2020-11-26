@@ -5,11 +5,11 @@ import (
 
 	"github.com/iotaledger/hive.go/events"
 
-	"github.com/gohornet/hornet/pkg/metrics"
-	"github.com/gohornet/hornet/pkg/model/tangle"
-	"github.com/gohornet/hornet/pkg/peering/peer"
-	"github.com/gohornet/hornet/pkg/protocol/sting"
-	"github.com/gohornet/hornet/plugins/peering"
+	"github.com/massyu/hornet/pkg/metrics"
+	"github.com/massyu/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/peering/peer"
+	"github.com/massyu/hornet/pkg/protocol/sting"
+	"github.com/massyu/hornet/plugins/peering"
 )
 
 // sets up the event handlers which propagate STING messages.

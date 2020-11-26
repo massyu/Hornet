@@ -1,4 +1,4 @@
-module github.com/gohornet/hornet
+module github.com/massyu/hornet
 
 go 1.15
 

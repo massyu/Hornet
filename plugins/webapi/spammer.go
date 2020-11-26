@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/gohornet/hornet/plugins/spammer"
+	"github.com/massyu/hornet/plugins/spammer"
 )
 
 func spammerRoute() {

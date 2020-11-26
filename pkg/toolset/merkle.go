@@ -10,8 +10,8 @@ import (
 	"github.com/iotaledger/iota.go/consts"
 	"github.com/iotaledger/iota.go/merkle"
 
-	"github.com/gohornet/hornet/pkg/config"
-	"github.com/gohornet/hornet/pkg/utils"
+	"github.com/massyu/hornet/pkg/config"
+	"github.com/massyu/hornet/pkg/utils"
 )
 
 const (

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gohornet/hornet/pkg/model/hornet"
-	"github.com/gohornet/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/model/hornet"
+	"github.com/massyu/hornet/pkg/model/tangle"
 )
 
 // ShortenedHash returns a shortened trinary hash for the given hash.

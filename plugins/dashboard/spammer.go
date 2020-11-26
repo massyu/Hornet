@@ -4,9 +4,9 @@ import (
 	"github.com/iotaledger/hive.go/daemon"
 	"github.com/iotaledger/hive.go/events"
 
-	"github.com/gohornet/hornet/pkg/shutdown"
-	"github.com/gohornet/hornet/pkg/spammer"
-	spammerplugin "github.com/gohornet/hornet/plugins/spammer"
+	"github.com/massyu/hornet/pkg/shutdown"
+	"github.com/massyu/hornet/pkg/spammer"
+	spammerplugin "github.com/massyu/hornet/plugins/spammer"
 )
 
 func runSpammerMetricWorker() {

@@ -3,9 +3,9 @@ package tangle
 import (
 	"github.com/iotaledger/hive.go/events"
 
-	"github.com/gohornet/hornet/pkg/model/milestone"
-	"github.com/gohornet/hornet/pkg/model/tangle"
-	"github.com/gohornet/hornet/pkg/whiteflag"
+	"github.com/massyu/hornet/pkg/model/milestone"
+	"github.com/massyu/hornet/pkg/model/tangle"
+	"github.com/massyu/hornet/pkg/whiteflag"
 )
 
 func NewConfirmedMilestoneMetricCaller(handler interface{}, params ...interface{}) {
