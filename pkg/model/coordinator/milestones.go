@@ -131,10 +131,13 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	log.Println("ここまで2")
 
 	b = append(b, txSiblings)
+	log.Println("ここまで3.1")
 	// Address + Value + ObsoleteTag + Timestamp + CurrentIndex + LastIndex
 	// finalize bundle by adding the bundle hash
 	b, err = finalizeInsecure(b)
+	log.Println("ここまで3.2")
 	if err != nil {
+		log.Println("ここまで3.3")
 		return nil, err
 	}
 	log.Println("ここまで3")
