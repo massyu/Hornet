@@ -46,8 +46,9 @@ var (
 	maxTrackedTails int
 	belowMaxDepth   milestone.Index
 
-	nextCheckpointSignal chan struct{}
-	nextMilestoneSignal  chan struct{}
+	nextCheckpointSignal  chan struct{}
+	nextMilestoneSignal   chan struct{}
+	cancelMilestoneSignal chan struct{}
 
 	coo      *coordinator.Coordinator
 	selector *mselection.HeaviestSelector
@@ -105,6 +106,8 @@ func initCoordinator(bootstrap bool, startIndex uint32, powHandler *powpackage.H
 	// must be a buffered channel, otherwise signal gets
 	// lost if checkpoint is generated at the same time
 	nextMilestoneSignal = make(chan struct{}, 1)
+
+	cancelMilestoneSignal = make(chan struct{}, 0) //初期値は0(false)
 
 	maxTrackedTails = config.NodeConfig.GetInt(config.CfgCoordinatorCheckpointsMaxTrackedTails)
 
@@ -195,7 +198,7 @@ func run(plugin *node.Plugin) {
 				lastCheckpointHash = checkpointHash
 
 			case <-nextMilestoneSignal:
-
+				cancelTransactionAdd := "not hogehoge"
 				// issue a new checkpoint right in front of the milestone
 				tips, err := selector.SelectTips(1)
 				if err != nil {
@@ -214,7 +217,47 @@ func run(plugin *node.Plugin) {
 					}
 				}
 
-				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash)
+				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, false, cancelTransactionAdd)
+				if criticalErr != nil {
+					log.Panic(criticalErr)
+				}
+				if err != nil {
+					if err == tangle.ErrNodeNotSynced {
+						// Coordinator is not synchronized, trigger the solidifier manually
+						tangleplugin.TriggerSolidifier()
+					}
+					log.Warn(err)
+					continue
+				}
+
+				// remember the last milestone hash
+				lastMilestoneHash = milestoneHash
+
+				// reset the checkpoints
+				lastCheckpointHash = milestoneHash
+				lastCheckpointIndex = 0
+
+			case <-cancelMilestoneSignal:
+				cancelTransactionAdd := "hogehoge"
+				// issue a new checkpoint right in front of the milestone
+				tips, err := selector.SelectTips(1)
+				if err != nil {
+					// issuing checkpoint failed => not critical
+					if err != mselection.ErrNoTipsAvailable {
+						log.Warn(err)
+					}
+				} else {
+					checkpointHash, err := coo.IssueCheckpoint(lastCheckpointIndex, lastCheckpointHash, tips)
+					if err != nil {
+						// issuing checkpoint failed => not critical
+						log.Warn(err)
+					} else {
+						// use the new checkpoint hash
+						lastCheckpointHash = checkpointHash
+					}
+				}
+
+				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, true, cancelTransactionAdd)
 				if criticalErr != nil {
 					log.Panic(criticalErr)
 				}
