@@ -137,16 +137,16 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	if err != nil {
 		return nil, err
 	}
-
+	log.Println("ここまで3")
 	if err = doPow(txSiblings, mwm, powHandler); err != nil {
 		return nil, err
 	}
-
+	log.Println("ここまで4")
 	fragments, err := merkle.SignatureFragments(seed, uint32(index), securityLvl, txSiblings.Hash)
 	if err != nil {
 		return nil, err
 	}
-
+	log.Println("ここまで5")
 	// verify milestone signature
 	if valid, err := merkle.ValidateSignatureFragments(merkleTree.Root, uint32(index), leafSiblings, fragments, txSiblings.Hash); !valid {
 		if err != nil {
@@ -154,23 +154,23 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 		return nil, fmt.Errorf("Merkle root does not match")
 	}
-
+	log.Println("ここまで6")
 	if err = chainTransactionsFillSignatures(b, fragments, mwm, powHandler); err != nil {
 		return nil, err
 	}
-
+	log.Println("ここまで7")
 	// check all tx
 	iotaGoBundle := make(bundle.Bundle, len(b))
 	for i := 0; i < len(b); i++ {
 		iotaGoBundle[i] = *b[i]
 	}
-
+	log.Println("ここまで8")
 	// validate bundle semantics and signatures
 	if err := bundle.ValidBundle(iotaGoBundle); err != nil {
 		fmt.Println(err.Error())
 		return nil, err
 	}
-	log.Println("ここまで3")
+	log.Println("ここまで9")
 	return b, nil
 }
 
