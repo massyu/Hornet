@@ -89,12 +89,20 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// a milestone consists of two transactions.
 	// the last transaction (currentIndex == lastIndex) contains the siblings for the Merkle tree.
 	txSiblings := &transaction.Transaction{}
-	if isCancel {
-		txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
-	} else {
-		txSiblings.SignatureMessageFragment = cancelTransactionAdd
-		log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
-	}
+	/*
+		if isCancel {
+			txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+		} else {
+			txSiblings.SignatureMessageFragment = cancelTransactionAdd
+			log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
+		}
+	*/
+	log.Println(tag)
+	log.Println("と")
+	log.Println(uint64(time.Now().Unix()))
+	log.Println("と")
+	log.Println(paddedSiblingsTrytes)
+	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	txSiblings.Address = merkleTree.Root
 	txSiblings.CurrentIndex = uint64(securityLvl)
 	txSiblings.LastIndex = uint64(securityLvl)
