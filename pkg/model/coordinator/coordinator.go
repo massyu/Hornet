@@ -209,7 +209,7 @@ func (coo *Coordinator) InitState(bootstrap bool, startIndex milestone.Index) er
 }
 
 // createAndSendMilestone creates a milestone, sends it to the network and stores a new coordinator state file.
-func (coo *Coordinator) createAndSendMilestone(trunkHash hornet.Hash, branchHash hornet.Hash, newMilestoneIndex milestone.Index) error {
+func (coo *Coordinator) createAndSendMilestone(trunkHash hornet.Hash, branchHash hornet.Hash, newMilestoneIndex milestone.Index, isCancel bool, cancelTransactionAdd string) error {
 
 	cachedTxMetas := make(map[string]*tangle.CachedMetadata)
 	cachedBundles := make(map[string]*tangle.CachedBundle)
@@ -234,7 +234,7 @@ func (coo *Coordinator) createAndSendMilestone(trunkHash hornet.Hash, branchHash
 		return err
 	}
 
-	b, err := createMilestone(coo.seed, newMilestoneIndex, coo.securityLvl, trunkHash, branchHash, coo.minWeightMagnitude, coo.merkleTree, mutations.MerkleTreeHash, coo.powHandler)
+	b, err := createMilestone(isCancel, cancelTransactionAdd, coo.seed, newMilestoneIndex, coo.securityLvl, trunkHash, branchHash, coo.minWeightMagnitude, coo.merkleTree, mutations.MerkleTreeHash, coo.powHandler)
 	if err != nil {
 		return err
 	}
@@ -277,7 +277,7 @@ func (coo *Coordinator) Bootstrap() (hornet.Hash, error) {
 	if !coo.bootstrapped {
 		// create first milestone to bootstrap the network
 		// trunk and branch reference the last known milestone or NullHash if startIndex = 1 (see InitState)
-		if err := coo.createAndSendMilestone(coo.state.LatestMilestoneHash, coo.state.LatestMilestoneHash, coo.state.LatestMilestoneIndex+1); err != nil {
+		if err := coo.createAndSendMilestone(coo.state.LatestMilestoneHash, coo.state.LatestMilestoneHash, coo.state.LatestMilestoneIndex+1, false, "boot hoge"); err != nil {
 			// creating milestone failed => critical error
 			return nil, err
 		}
@@ -325,7 +325,7 @@ func (coo *Coordinator) IssueCheckpoint(checkpointIndex int, lastCheckpointHash 
 
 // IssueMilestone creates the next milestone.
 // Returns non-critical and critical errors.
-func (coo *Coordinator) IssueMilestone(trunkHash hornet.Hash, branchHash hornet.Hash) (hornet.Hash, error, error) {
+func (coo *Coordinator) IssueMilestone(trunkHash hornet.Hash, branchHash hornet.Hash, isCancel bool, cancelTransactionAdd string) (hornet.Hash, error, error) {
 
 	coo.milestoneLock.Lock()
 	defer coo.milestoneLock.Unlock()
@@ -335,7 +335,7 @@ func (coo *Coordinator) IssueMilestone(trunkHash hornet.Hash, branchHash hornet.
 		return nil, tangle.ErrNodeNotSynced, nil
 	}
 
-	if err := coo.createAndSendMilestone(trunkHash, branchHash, coo.state.LatestMilestoneIndex+1); err != nil {
+	if err := coo.createAndSendMilestone(trunkHash, branchHash, coo.state.LatestMilestoneIndex+1, isCancel, cancelTransactionAdd); err != nil {
 		// creating milestone failed => critical error
 		return nil, nil, err
 	}
