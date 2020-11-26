@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/syncutils"
-	"github.com/iotaledger/hive.go/workerpool"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/syncutils"
+	"github.com/massyu/hive.go/workerpool"
 
 	"github.com/massyu/hornet/pkg/dag"
 	"github.com/massyu/hornet/pkg/metrics"

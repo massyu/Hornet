@@ -1,7 +1,7 @@
 package tangle
 
 import (
-	"github.com/iotaledger/hive.go/events"
+	"github.com/massyu/hive.go/events"
 
 	"github.com/massyu/hornet/pkg/model/milestone"
 	"github.com/massyu/hornet/pkg/model/tangle"

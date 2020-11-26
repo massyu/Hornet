@@ -14,7 +14,7 @@ import (
 
 	"github.com/iotaledger/iota.go/consts"
 
-	"github.com/iotaledger/hive.go/daemon"
+	"github.com/massyu/hive.go/daemon"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/dag"

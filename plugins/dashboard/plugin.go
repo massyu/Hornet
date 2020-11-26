@@ -9,11 +9,11 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
-	"github.com/iotaledger/hive.go/websockethub"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
+	"github.com/massyu/hive.go/websockethub"
 
 	"github.com/massyu/hornet/pkg/basicauth"
 	"github.com/massyu/hornet/pkg/config"

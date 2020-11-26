@@ -14,9 +14,9 @@ import (
 	"github.com/massyu/hornet/plugins/spammer"
 	cnet "github.com/projectcalico/libcalico-go/lib/net"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/model/tangle"

@@ -10,8 +10,8 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
-	"github.com/iotaledger/hive.go/crypto/ed25519"
-	"github.com/iotaledger/hive.go/identity"
+	"github.com/massyu/hive.go/crypto/ed25519"
+	"github.com/massyu/hive.go/identity"
 )
 
 type NetworkType byte

@@ -13,7 +13,7 @@ import (
 	"github.com/iotaledger/iota.go/merkle"
 	"github.com/iotaledger/iota.go/trinary"
 
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

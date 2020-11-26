@@ -1,7 +1,7 @@
 package tangle
 
 import (
-	"github.com/iotaledger/hive.go/workerpool"
+	"github.com/massyu/hive.go/workerpool"
 
 	"github.com/massyu/hornet/pkg/model/tangle"
 	"github.com/massyu/hornet/plugins/gossip"

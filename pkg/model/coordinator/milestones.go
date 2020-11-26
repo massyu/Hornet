@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iotaledger/hive.go/batchhasher"
 	"github.com/iotaledger/iota.go/bundle"
 	"github.com/iotaledger/iota.go/consts"
 	"github.com/iotaledger/iota.go/kerl"
 	"github.com/iotaledger/iota.go/merkle"
 	"github.com/iotaledger/iota.go/transaction"
 	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/hive.go/batchhasher"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

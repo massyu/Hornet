@@ -8,7 +8,7 @@ import (
 
 	"github.com/iotaledger/iota.go/consts"
 
-	"github.com/iotaledger/hive.go/kvstore"
+	"github.com/massyu/hive.go/kvstore"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

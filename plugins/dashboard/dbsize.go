@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/timeutil"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/timeutil"
 
 	"github.com/massyu/hornet/pkg/model/tangle"
 	"github.com/massyu/hornet/pkg/shutdown"

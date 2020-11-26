@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/packr/v2"
-	"github.com/iotaledger/hive.go/syncutils"
-	"github.com/iotaledger/hive.go/websockethub"
 	"github.com/labstack/echo/v4"
+	"github.com/massyu/hive.go/syncutils"
+	"github.com/massyu/hive.go/websockethub"
 	"github.com/pkg/errors"
 
 	"github.com/massyu/hornet/pkg/config"

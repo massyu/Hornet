@@ -5,8 +5,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/iotaledger/hive.go/crypto/ed25519"
-	"github.com/iotaledger/hive.go/identity"
+	"github.com/massyu/hive.go/crypto/ed25519"
+	"github.com/massyu/hive.go/identity"
 )
 
 // AutopeeredNetwork is a network consisting out of autopeered nodes.

@@ -6,8 +6,8 @@ import (
 	"github.com/iotaledger/iota.go/pow"
 	"github.com/iotaledger/iota.go/trinary"
 
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/syncutils"
 
 	powsrvio "gitlab.com/powsrv.io/go/client"
 )

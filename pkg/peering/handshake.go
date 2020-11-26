@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"time"
 
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/iputils"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/iputils"
 	"github.com/pkg/errors"
 
 	"github.com/massyu/hornet/pkg/peering/peer"

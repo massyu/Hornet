@@ -8,11 +8,11 @@ import (
 
 	"go.uber.org/atomic"
 
-	"github.com/iotaledger/hive.go/autopeering/peer"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/identity"
-	"github.com/iotaledger/hive.go/iputils"
-	"github.com/iotaledger/hive.go/network"
+	"github.com/massyu/hive.go/autopeering/peer"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/identity"
+	"github.com/massyu/hive.go/iputils"
+	"github.com/massyu/hive.go/network"
 
 	"github.com/massyu/hornet/pkg/metrics"
 	"github.com/massyu/hornet/pkg/model/milestone"

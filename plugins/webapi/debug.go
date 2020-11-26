@@ -9,8 +9,8 @@ import (
 
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/iotaledger/hive.go/daemon"
 	"github.com/iotaledger/iota.go/guards"
+	"github.com/massyu/hive.go/daemon"
 
 	"github.com/massyu/hornet/pkg/dag"
 	"github.com/massyu/hornet/pkg/model/hornet"

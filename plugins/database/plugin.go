@@ -6,10 +6,10 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/model/tangle"

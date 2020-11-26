@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/iotaledger/hive.go/events"
+	"github.com/massyu/hive.go/events"
 )
 
 type DatabaseCleanup struct {

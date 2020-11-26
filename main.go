@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/iotaledger/hive.go/node"
+	"github.com/massyu/hive.go/node"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/toolset"

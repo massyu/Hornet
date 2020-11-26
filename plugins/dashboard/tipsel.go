@@ -1,9 +1,9 @@
 package dashboard
 
 import (
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/node"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/node"
 
 	"github.com/massyu/hornet/pkg/shutdown"
 	"github.com/massyu/hornet/pkg/tipselect"

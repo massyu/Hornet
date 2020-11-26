@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/iotaledger/hive.go/events"
+	"github.com/massyu/hive.go/events"
 	"github.com/massyu/hornet/pkg/protocol"
 	"github.com/massyu/hornet/pkg/protocol/handshake"
 	"github.com/massyu/hornet/pkg/protocol/sting"

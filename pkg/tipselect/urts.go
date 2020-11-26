@@ -7,8 +7,8 @@ import (
 
 	"go.uber.org/atomic"
 
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/dag"
 	"github.com/massyu/hornet/pkg/metrics"

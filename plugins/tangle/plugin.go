@@ -7,11 +7,11 @@ import (
 	"github.com/pkg/errors"
 	flag "github.com/spf13/pflag"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
-	"github.com/iotaledger/hive.go/timeutil"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
+	"github.com/massyu/hive.go/timeutil"
 
 	"github.com/iotaledger/iota.go/address"
 

@@ -7,8 +7,8 @@ import (
 
 	"go.etcd.io/bbolt"
 
-	"github.com/iotaledger/hive.go/kvstore"
-	"github.com/iotaledger/hive.go/kvstore/bolt"
+	"github.com/massyu/hive.go/kvstore"
+	"github.com/massyu/hive.go/kvstore/bolt"
 
 	"github.com/massyu/hornet/pkg/profile"
 )

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/node"
-	"github.com/iotaledger/hive.go/workerpool"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/node"
+	"github.com/massyu/hive.go/workerpool"
 
 	"github.com/massyu/hornet/pkg/metrics"
 	"github.com/massyu/hornet/pkg/model/hornet"

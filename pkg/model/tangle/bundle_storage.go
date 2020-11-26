@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/iotaledger/hive.go/bitmask"
-	"github.com/iotaledger/hive.go/kvstore"
-	"github.com/iotaledger/hive.go/objectstorage"
+	"github.com/massyu/hive.go/bitmask"
+	"github.com/massyu/hive.go/kvstore"
+	"github.com/massyu/hive.go/objectstorage"
 
 	"github.com/massyu/hornet/pkg/metrics"
 	"github.com/massyu/hornet/pkg/model/hornet"

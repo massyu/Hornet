@@ -7,9 +7,9 @@ import (
 
 	iotagobundle "github.com/iotaledger/iota.go/bundle"
 
-	"github.com/iotaledger/hive.go/bitmask"
-	"github.com/iotaledger/hive.go/objectstorage"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/bitmask"
+	"github.com/massyu/hive.go/objectstorage"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/metrics"
 	"github.com/massyu/hornet/pkg/model/hornet"

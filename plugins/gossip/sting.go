@@ -3,7 +3,7 @@ package gossip
 import (
 	"time"
 
-	"github.com/iotaledger/hive.go/events"
+	"github.com/massyu/hive.go/events"
 
 	"github.com/massyu/hornet/pkg/metrics"
 	"github.com/massyu/hornet/pkg/model/tangle"

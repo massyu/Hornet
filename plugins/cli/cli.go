@@ -7,10 +7,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/iotaledger/hive.go/logger"
+	"github.com/massyu/hive.go/logger"
 	flag "github.com/spf13/pflag"
 
-	"github.com/iotaledger/hive.go/node"
+	"github.com/massyu/hive.go/node"
 
 	"github.com/massyu/hornet/pkg/config"
 )

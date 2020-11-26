@@ -9,9 +9,9 @@ import (
 
 	"github.com/willf/bitset"
 
-	"github.com/iotaledger/hive.go/byteutils"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/byteutils"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/protocol/handshake"
 	"github.com/massyu/hornet/pkg/protocol/message"

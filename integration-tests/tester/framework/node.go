@@ -7,12 +7,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/iotaledger/hive.go/identity"
 	"github.com/iotaledger/iota.go/api"
 	"github.com/iotaledger/iota.go/bundle"
 	"github.com/iotaledger/iota.go/checksum"
 	"github.com/iotaledger/iota.go/consts"
 	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/hive.go/identity"
 	"github.com/massyu/hornet/pkg/peering/peer"
 )
 

@@ -3,9 +3,9 @@ package metrics
 import (
 	"time"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/node"
-	"github.com/iotaledger/hive.go/timeutil"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/node"
+	"github.com/massyu/hive.go/timeutil"
 
 	"github.com/massyu/hornet/pkg/shutdown"
 )

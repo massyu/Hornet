@@ -7,8 +7,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/iotaledger/hive.go/bitmask"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/bitmask"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

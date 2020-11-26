@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
 	"github.com/massyu/hornet/pkg/model/tangle"
 	"github.com/massyu/hornet/pkg/protocol/helpers"
 

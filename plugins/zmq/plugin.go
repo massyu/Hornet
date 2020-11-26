@@ -5,12 +5,12 @@ import (
 
 	"github.com/iotaledger/iota.go/trinary"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
-	"github.com/iotaledger/hive.go/timeutil"
-	"github.com/iotaledger/hive.go/workerpool"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
+	"github.com/massyu/hive.go/timeutil"
+	"github.com/massyu/hive.go/workerpool"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/model/milestone"

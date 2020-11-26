@@ -5,8 +5,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/iotaledger/hive.go/iputils"
-	"github.com/iotaledger/hive.go/network"
+	"github.com/massyu/hive.go/iputils"
+	"github.com/massyu/hive.go/network"
 	"github.com/pkg/errors"
 
 	"github.com/massyu/hornet/pkg/config"

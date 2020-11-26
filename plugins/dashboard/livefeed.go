@@ -3,8 +3,8 @@ package dashboard
 import (
 	"time"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/events"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/events"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

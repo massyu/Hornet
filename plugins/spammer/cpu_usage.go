@@ -8,7 +8,7 @@ import (
 
 	"github.com/shirou/gopsutil/cpu"
 
-	"github.com/iotaledger/hive.go/daemon"
+	"github.com/massyu/hive.go/daemon"
 
 	"github.com/massyu/hornet/pkg/model/tangle"
 )

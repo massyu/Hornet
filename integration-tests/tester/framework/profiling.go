@@ -11,7 +11,7 @@ import (
 
 	"github.com/go-echarts/go-echarts/charts"
 	"github.com/gorilla/websocket"
-	"github.com/iotaledger/hive.go/websockethub"
+	"github.com/massyu/hive.go/websockethub"
 	"github.com/massyu/hornet/pkg/tipselect"
 	"github.com/massyu/hornet/plugins/dashboard"
 	"github.com/massyu/hornet/plugins/metrics"

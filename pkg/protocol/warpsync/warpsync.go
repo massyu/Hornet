@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/iotaledger/hive.go/events"
+	"github.com/massyu/hive.go/events"
 	"github.com/massyu/hornet/pkg/model/milestone"
 )
 

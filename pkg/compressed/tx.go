@@ -8,7 +8,7 @@ import (
 	"github.com/iotaledger/iota.go/transaction"
 	"github.com/iotaledger/iota.go/trinary"
 
-	"github.com/iotaledger/hive.go/batchhasher"
+	"github.com/massyu/hive.go/batchhasher"
 )
 
 const (

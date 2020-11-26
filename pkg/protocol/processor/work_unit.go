@@ -1,8 +1,8 @@
 package processor
 
 import (
-	"github.com/iotaledger/hive.go/objectstorage"
-	"github.com/iotaledger/hive.go/syncutils"
+	"github.com/massyu/hive.go/objectstorage"
+	"github.com/massyu/hive.go/syncutils"
 
 	"github.com/massyu/hornet/pkg/metrics"
 	"github.com/massyu/hornet/pkg/model/hornet"

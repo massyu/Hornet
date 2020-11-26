@@ -7,11 +7,11 @@ import (
 	"github.com/mr-tron/base58/base58"
 	"go.etcd.io/bbolt"
 
-	"github.com/iotaledger/hive.go/autopeering/peer"
-	"github.com/iotaledger/hive.go/autopeering/peer/service"
-	"github.com/iotaledger/hive.go/crypto/ed25519"
-	"github.com/iotaledger/hive.go/kvstore/bolt"
-	"github.com/iotaledger/hive.go/logger"
+	"github.com/massyu/hive.go/autopeering/peer"
+	"github.com/massyu/hive.go/autopeering/peer/service"
+	"github.com/massyu/hive.go/crypto/ed25519"
+	"github.com/massyu/hive.go/kvstore/bolt"
+	"github.com/massyu/hive.go/logger"
 
 	"github.com/massyu/hornet/pkg/autopeering/services"
 	"github.com/massyu/hornet/pkg/config"

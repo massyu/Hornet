@@ -4,9 +4,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/iotaledger/hive.go/daemon"
-	"github.com/iotaledger/hive.go/logger"
-	"github.com/iotaledger/hive.go/node"
+	"github.com/massyu/hive.go/daemon"
+	"github.com/massyu/hive.go/logger"
+	"github.com/massyu/hive.go/node"
 
 	"github.com/massyu/hornet/pkg/config"
 	powpackage "github.com/massyu/hornet/pkg/pow"

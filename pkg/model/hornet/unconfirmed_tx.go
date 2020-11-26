@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	"github.com/iotaledger/hive.go/objectstorage"
+	"github.com/massyu/hive.go/objectstorage"
 
 	"github.com/massyu/hornet/pkg/model/milestone"
 )
