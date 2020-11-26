@@ -2,6 +2,7 @@ package coordinator
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -69,14 +70,13 @@ func createCheckpoint(trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, po
 }
 
 // createMilestone creates a signed milestone bundle.
-func createMilestone(seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
-
+func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
+	log.Println(cancelTransactionAdd + "だよーーー")
 	// get the siblings in the current Merkle tree
 	leafSiblings, err := merkleTree.AuditPath(uint32(index))
 	if err != nil {
 		return nil, err
 	}
-
 	siblingsTrytes := strings.Join(leafSiblings, "")
 
 	// append t6b1 encoded merkle tree root hash to the head's signature message fragment data
@@ -89,7 +89,12 @@ func createMilestone(seed trinary.Hash, index milestone.Index, securityLvl const
 	// a milestone consists of two transactions.
 	// the last transaction (currentIndex == lastIndex) contains the siblings for the Merkle tree.
 	txSiblings := &transaction.Transaction{}
-	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+	if isCancel {
+		txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+	} else {
+		txSiblings.SignatureMessageFragment = cancelTransactionAdd
+		log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
+	}
 	txSiblings.Address = merkleTree.Root
 	txSiblings.CurrentIndex = uint64(securityLvl)
 	txSiblings.LastIndex = uint64(securityLvl)
