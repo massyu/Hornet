@@ -109,6 +109,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 	// the other transactions contain a signature that signs the siblings and thereby ensures the integrity.
 	var b Bundle
+	log.Println("ここまで1")
 
 	for txIndex := 0; txIndex < int(securityLvl); txIndex++ {
 		tx := &transaction.Transaction{}
@@ -127,6 +128,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 		b = append(b, tx)
 	}
+	log.Println("ここまで2")
 
 	b = append(b, txSiblings)
 	// Address + Value + ObsoleteTag + Timestamp + CurrentIndex + LastIndex
@@ -168,7 +170,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		fmt.Println(err.Error())
 		return nil, err
 	}
-
+	log.Println("ここまで3")
 	return b, nil
 }
 
