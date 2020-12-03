@@ -2,7 +2,6 @@ package spammer
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/iotaledger/iota.go/address"
@@ -31,24 +30,19 @@ func integerToAscii(number int) string {
 
 // We don't need to care about the M-Bug in the spammer => much faster without
 func finalizeInsecure(bundle bundle.Bundle) (bundle.Bundle, error) {
-	log.Println("ここまで3.4")
 	var valueTrits = make([]trinary.Trits, len(bundle))
 	var timestampTrits = make([]trinary.Trits, len(bundle))
 	var currentIndexTrits = make([]trinary.Trits, len(bundle))
 	var obsoleteTagTrits = make([]trinary.Trits, len(bundle))
 	var lastIndexTrits = trinary.MustPadTrits(trinary.IntToTrits(int64(bundle[0].LastIndex)), 27)
-	log.Println("ここまで3.5")
 	for i := range bundle {
-		log.Println("ここまで3.6")
 		valueTrits[i] = trinary.MustPadTrits(trinary.IntToTrits(bundle[i].Value), 81)
 		timestampTrits[i] = trinary.MustPadTrits(trinary.IntToTrits(int64(bundle[i].Timestamp)), 27)
 		currentIndexTrits[i] = trinary.MustPadTrits(trinary.IntToTrits(int64(bundle[i].CurrentIndex)), 27)
 		obsoleteTagTrits[i] = trinary.MustPadTrits(trinary.MustTrytesToTrits(bundle[i].ObsoleteTag), 81)
-		log.Println("ここまで3.7")
 	}
 
 	var bundleHash trinary.Hash
-	log.Println("ここまで3.8")
 	k := kerl.NewKerl()
 
 	for i := 0; i < len(bundle); i++ {
@@ -60,24 +54,19 @@ func finalizeInsecure(bundle bundle.Bundle) (bundle.Bundle, error) {
 				trinary.MustTritsToTrytes(currentIndexTrits[i]) +
 				trinary.MustTritsToTrytes(lastIndexTrits),
 		)
-		log.Println("ここまで3.9")
 		k.Absorb(relevantTritsForBundleHash)
 	}
 
-	log.Println("ここまで3.91")
 	bundleHashTrits, err := k.Squeeze(consts.HashTrinarySize)
 	if err != nil {
 		return nil, err
 	}
-	log.Println("ここまで3.92")
 	bundleHash = trinary.MustTritsToTrytes(bundleHashTrits)
-	log.Println("ここまで3.93")
 	// set the computed bundle hash on each tx in the bundle
 	for i := range bundle {
 		tx := &bundle[i]
 		tx.Bundle = bundleHash
 	}
-	log.Println("ここまで3.94")
 	return bundle, nil
 }
 

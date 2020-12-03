@@ -198,7 +198,7 @@ func run(plugin *node.Plugin) {
 				lastCheckpointHash = checkpointHash
 
 			case <-nextMilestoneSignal:
-				cancelTransactionAdd := "not hogehoge"
+				cancelTransactionAdd := "not cancelTransaction"
 				// issue a new checkpoint right in front of the milestone
 				tips, err := selector.SelectTips(1)
 				if err != nil {

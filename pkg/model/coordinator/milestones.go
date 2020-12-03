@@ -71,7 +71,7 @@ func createCheckpoint(trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, po
 
 // createMilestone creates a signed milestone bundle.
 func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
-	log.Println(cancelTransactionAdd + "だよーーー")
+	log.Println("発行するmilestone:" + cancelTransactionAdd)
 	// get the siblings in the current Merkle tree
 	leafSiblings, err := merkleTree.AuditPath(uint32(index))
 	if err != nil {
@@ -90,7 +90,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// the last transaction (currentIndex == lastIndex) contains the siblings for the Merkle tree.
 	txSiblings := &transaction.Transaction{}
 	cancelTransactionAdd =
-		"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" +
+		"VSLGQKKQJBWRLTYHYCRCBUXY9IVBUEFO9CFDDULQOIGYCQRKGXLWFKPMPHKSIX9STD9DCNBIGKXDVFGSY" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
@@ -113,20 +113,22 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
-			"99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+			"99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
 
+	log.Println("isCancelの値は")
+	log.Println(isCancel)
 	if isCancel {
-		txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
-	} else {
 		txSiblings.SignatureMessageFragment = cancelTransactionAdd
 		log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
+	} else {
+		txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	}
 
-	log.Println(tag)
-	log.Println("と")
-	log.Println(uint64(time.Now().Unix()))
-	log.Println("と")
-	log.Println(paddedSiblingsTrytes)
+	//log.Println(tag)
+	//log.Println("と")
+	//log.Println(uint64(time.Now().Unix()))
+	//log.Println("と")
+	//log.Println(paddedSiblingsTrytes)
 	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	txSiblings.Address = merkleTree.Root
 	txSiblings.CurrentIndex = uint64(securityLvl)
@@ -142,7 +144,6 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 	// the other transactions contain a signature that signs the siblings and thereby ensures the integrity.
 	var b Bundle
-	log.Println("ここまで1")
 
 	for txIndex := 0; txIndex < int(securityLvl); txIndex++ {
 		tx := &transaction.Transaction{}
@@ -161,28 +162,21 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 		b = append(b, tx)
 	}
-	log.Println("ここまで2")
 
 	b = append(b, txSiblings)
-	log.Println("ここまで3.1")
 	// Address + Value + ObsoleteTag + Timestamp + CurrentIndex + LastIndex
 	// finalize bundle by adding the bundle hash
 	b, err = finalizeInsecure(b)
-	log.Println("ここまで3.2")
 	if err != nil {
-		log.Println("ここまで3.3")
 		return nil, err
 	}
-	log.Println("ここまで3")
 	if err = doPow(txSiblings, mwm, powHandler); err != nil {
 		return nil, err
 	}
-	log.Println("ここまで4")
 	fragments, err := merkle.SignatureFragments(seed, uint32(index), securityLvl, txSiblings.Hash)
 	if err != nil {
 		return nil, err
 	}
-	log.Println("ここまで5")
 	// verify milestone signature
 	if valid, err := merkle.ValidateSignatureFragments(merkleTree.Root, uint32(index), leafSiblings, fragments, txSiblings.Hash); !valid {
 		if err != nil {
@@ -190,23 +184,19 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 		return nil, fmt.Errorf("Merkle root does not match")
 	}
-	log.Println("ここまで6")
 	if err = chainTransactionsFillSignatures(b, fragments, mwm, powHandler); err != nil {
 		return nil, err
 	}
-	log.Println("ここまで7")
 	// check all tx
 	iotaGoBundle := make(bundle.Bundle, len(b))
 	for i := 0; i < len(b); i++ {
 		iotaGoBundle[i] = *b[i]
 	}
-	log.Println("ここまで8")
 	// validate bundle semantics and signatures
 	if err := bundle.ValidBundle(iotaGoBundle); err != nil {
 		fmt.Println(err.Error())
 		return nil, err
 	}
-	log.Println("ここまで9")
 	return b, nil
 }
 

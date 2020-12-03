@@ -97,7 +97,7 @@ func (te *TestEnvironment) IssueAndConfirmMilestoneOnTip(tip hornet.Hash, create
 	te.VerifyLMI(currentIndex)
 
 	fmt.Printf("Issue milestone %v\n", currentIndex+1)
-	milestoneHash, noncriticalErr, criticalErr := te.coo.IssueMilestone(te.lastMilestoneHash, tip)
+	milestoneHash, noncriticalErr, criticalErr := te.coo.IssueMilestone(te.lastMilestoneHash, tip, false, "testsuitehoge")
 	require.NoError(te.testState, noncriticalErr)
 	require.NoError(te.testState, criticalErr)
 	te.lastMilestoneHash = milestoneHash
