@@ -121,7 +121,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		txSiblings.SignatureMessageFragment = cancelTransactionAdd
 		log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
 	} else {
-		txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+		txSiblings.SignatureMessageFragment = cancelTransactionAdd
+		//txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	}
 
 	//log.Println(tag)
