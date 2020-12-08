@@ -90,7 +90,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// the last transaction (currentIndex == lastIndex) contains the siblings for the Merkle tree.
 	txSiblings := &transaction.Transaction{}
 	cancelTransactionAdd =
-		"VSLGQKKQJBWRLTYHYCRCBUXY9IVBUEFO9CFDDULQOIGYCQRKGXLWFKPMPHKSIX9STD9DCNBIGKXDVFGSY" +
+		"9WXESQFTCORSEOVVYBRNPLO9XFZTROJ9AFSZ9PYRUDMTARCSIJ9CT9WPXAYQHYJIJWIMMPRUZGZGWYCZ9" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 			"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
@@ -130,8 +130,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	//log.Println(uint64(time.Now().Unix()))
 	//log.Println("と")
 	//log.Println(paddedSiblingsTrytes)
-	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
-	//txSiblings.SignatureMessageFragment = cancelTransactionAdd
+	//txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+	txSiblings.SignatureMessageFragment = cancelTransactionAdd
 	txSiblings.Address = merkleTree.Root
 	txSiblings.CurrentIndex = uint64(securityLvl)
 	txSiblings.LastIndex = uint64(securityLvl)
@@ -145,11 +145,16 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	txSiblings.Nonce = consts.NullTagTrytes
 
 	// the other transactions contain a signature that signs the siblings and thereby ensures the integrity.
-	var b Bundle
+	var b Bundle //bundleの定義
 
+	//securityLvlの回数だけbundle値をいっぱい追加してbundle生成処理
+	log.Println("securityLvlの値：" + string(securityLvl))
 	for txIndex := 0; txIndex < int(securityLvl); txIndex++ {
 		tx := &transaction.Transaction{}
+		//tx.SignatureMessageFragment = consts.NullSignatureMessageFragmentTrytes
 		tx.SignatureMessageFragment = consts.NullSignatureMessageFragmentTrytes
+		log.Println("consts.NullSignatureMessageFragmentTrytesの値=")
+		log.Println(consts.NullSignatureMessageFragmentTrytes)
 		tx.Address = merkleTree.Root
 		tx.CurrentIndex = uint64(txIndex)
 		tx.LastIndex = uint64(securityLvl)
@@ -162,10 +167,10 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		tx.Tag = tag
 		tx.Nonce = consts.NullTagTrytes
 
-		b = append(b, tx)
+		b = append(b, tx) //appendなのでおそらく中身が長い
 	}
 
-	b = append(b, txSiblings)
+	b = append(b, txSiblings) //txSiblingsを最後に入れる
 	// Address + Value + ObsoleteTag + Timestamp + CurrentIndex + LastIndex
 	// finalize bundle by adding the bundle hash
 	b, err = finalizeInsecure(b)
