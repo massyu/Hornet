@@ -121,10 +121,10 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	log.Println(isCancel)
 	log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
-		txSiblings.SignatureMessageFragment = cancelTransactionAdd
+		txSiblings.Tag = cancelTransactionAdd
 		log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
 	} else {
-		txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+		txSiblings.Tag = tag
 	}
 
 	//log.Println(tag)
@@ -143,7 +143,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	txSiblings.Bundle = consts.NullHashTrytes
 	txSiblings.TrunkTransaction = trunkHash.Trytes()
 	txSiblings.BranchTransaction = branchHash.Trytes()
-	txSiblings.Tag = cancelTransactionAdd
+	//txSiblings.Tag = cancelTransactionAdd
 	txSiblings.Nonce = consts.NullTagTrytes
 
 	// the other transactions contain a signature that signs the siblings and thereby ensures the integrity.
@@ -180,8 +180,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 	b = append(b, txSiblings) //txSiblingsを最後に入れる
 
-	log.Println("txsiblings追加後のb")
-	log.Println(b)
+	//log.Println("txsiblings追加後のb")
+	//log.Println(b)
 
 	// Address + Value + ObsoleteTag + Timestamp + CurrentIndex + LastIndex
 	// finalize bundle by adding the bundle hash

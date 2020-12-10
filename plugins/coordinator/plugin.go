@@ -204,46 +204,6 @@ func run(plugin *node.Plugin) {
 				lastCheckpointIndex++
 				lastCheckpointHash = checkpointHash
 
-			case <-nextMilestoneSignal:
-				cancelTransactionAdd := "not cancelTransaction"
-				// issue a new checkpoint right in front of the milestone
-				tips, err := selector.SelectTips(1)
-				if err != nil {
-					// issuing checkpoint failed => not critical
-					if err != mselection.ErrNoTipsAvailable {
-						log.Warn(err)
-					}
-				} else {
-					checkpointHash, err := coo.IssueCheckpoint(lastCheckpointIndex, lastCheckpointHash, tips)
-					if err != nil {
-						// issuing checkpoint failed => not critical
-						log.Warn(err)
-					} else {
-						// use the new checkpoint hash
-						lastCheckpointHash = checkpointHash
-					}
-				}
-
-				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, false, cancelTransactionAdd)
-				if criticalErr != nil {
-					log.Panic(criticalErr)
-				}
-				if err != nil {
-					if err == tangle.ErrNodeNotSynced {
-						// Coordinator is not synchronized, trigger the solidifier manually
-						tangleplugin.TriggerSolidifier()
-					}
-					log.Warn(err)
-					continue
-				}
-
-				// remember the last milestone hash
-				lastMilestoneHash = milestoneHash
-
-				// reset the checkpoints
-				lastCheckpointHash = milestoneHash
-				lastCheckpointIndex = 0
-
 			case <-cancelMilestoneSignal:
 				cancelTransactionAdd := "cancelTransaction is called!!"
 				// issue a new checkpoint right in front of the milestone
@@ -265,6 +225,49 @@ func run(plugin *node.Plugin) {
 				}
 
 				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, true, cancelTransactionAdd)
+				if criticalErr != nil {
+					log.Panic(criticalErr)
+				}
+				if err != nil {
+					if err == tangle.ErrNodeNotSynced {
+						// Coordinator is not synchronized, trigger the solidifier manually
+						tangleplugin.TriggerSolidifier()
+					}
+					log.Warn(err)
+					continue
+				}
+
+				// remember the last milestone hash
+				lastMilestoneHash = milestoneHash
+
+				// reset the checkpoints
+				lastCheckpointHash = milestoneHash
+				lastCheckpointIndex = 0
+
+				cancelMilestoneSignal = make(chan struct{}, 0)
+				log.Info("cancelMilestone is Issued")
+
+			case <-nextMilestoneSignal:
+				cancelTransactionAdd := "not cancelTransaction"
+				// issue a new checkpoint right in front of the milestone
+				tips, err := selector.SelectTips(1)
+				if err != nil {
+					// issuing checkpoint failed => not critical
+					if err != mselection.ErrNoTipsAvailable {
+						log.Warn(err)
+					}
+				} else {
+					checkpointHash, err := coo.IssueCheckpoint(lastCheckpointIndex, lastCheckpointHash, tips)
+					if err != nil {
+						// issuing checkpoint failed => not critical
+						log.Warn(err)
+					} else {
+						// use the new checkpoint hash
+						lastCheckpointHash = checkpointHash
+					}
+				}
+
+				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, false, cancelTransactionAdd)
 				if criticalErr != nil {
 					log.Panic(criticalErr)
 				}
