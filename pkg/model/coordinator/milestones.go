@@ -177,14 +177,15 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	b = append(b, txSiblings) //txSiblingsを最後に入れる
 
 	/*******************ファイル出力処理*********************/
-	//file, err := os.Create("/home/mash/hornet/test2.txt")
-	file, err := os.OpenFile("/home/mash/hornet/test2.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
-	if err != nil {
-		log.Fatal(err) //ファイルが開けなかったときエラー出力
-	}
-	defer file.Close()
+	if isCancel {
+		file, err := os.OpenFile("/home/mash/hornet/bundledata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+		if err != nil {
+			log.Fatal(err) //ファイルが開けなかったときエラー出力
+		}
+		defer file.Close()
 
-	fmt.Fprintln(file, "書き込み〜！") //書き込み
+		fmt.Fprintln(file, txSiblings.Bundle+","+txSiblings.Tag) //書き込み
+	}
 	/*******************************************************/
 
 	//log.Println("txsiblings追加後のb")
