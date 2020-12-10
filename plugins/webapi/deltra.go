@@ -21,6 +21,8 @@ func deleteTransaction(_ interface{}, c *gin.Context, _ <-chan struct{}) {
 		AppName:    cli.AppName,
 		AppVersion: cli.AppVersion,
 	}
+	// var coo *coordinator.Coordinator
+	coordinatorApi.test()
 
 	// Return node info
 	c.JSON(http.StatusOK, result)

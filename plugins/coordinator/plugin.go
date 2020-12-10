@@ -67,6 +67,10 @@ var (
 	ErrTailTxNotFound  = errors.New("tail transaction not found in bundle")
 )
 
+func test() {
+	log.Info("test")
+}
+
 func configure(plugin *node.Plugin) {
 	log = logger.NewLogger(plugin.Name)
 

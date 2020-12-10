@@ -155,7 +155,7 @@ type DeleteTransaction struct {
 
 // DeleteTransactionReturn struct
 type DeleteTransactionReturn struct {
-	AppName    string `json:"appName"`
+	AppName    string `json:"channelを有効化"`
 	AppVersion string `json:"appVersion"`
 }
 
