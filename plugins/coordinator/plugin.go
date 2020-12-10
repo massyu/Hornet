@@ -206,6 +206,8 @@ func run(plugin *node.Plugin) {
 
 			case <-cancelMilestoneSignal:
 				cancelTransactionAdd := "cancelTransaction is called!!"
+				log.Info("cancelMilestoneSignalの値は")
+				log.Info(cancelMilestoneSignal)
 				// issue a new checkpoint right in front of the milestone
 				tips, err := selector.SelectTips(1)
 				if err != nil {
@@ -249,6 +251,9 @@ func run(plugin *node.Plugin) {
 
 			case <-nextMilestoneSignal:
 				cancelTransactionAdd := "not cancelTransaction"
+				log.Info("cancelMilestoneSignalの値は")
+				log.Info(cancelMilestoneSignal)
+
 				// issue a new checkpoint right in front of the milestone
 				tips, err := selector.SelectTips(1)
 				if err != nil {
