@@ -108,7 +108,7 @@ func initCoordinator(bootstrap bool, startIndex uint32, powHandler *powpackage.H
 		time.Duration(config.NodeConfig.GetInt(config.CfgCoordinatorTipselectHeaviestBranchSelectionDeadlineMilliseconds))*time.Millisecond,
 	)
 
-	cancelMilestoneSignal = make(chan struct{}, 1)
+	//cancelMilestoneSignal = make(chan struct{}, 1)
 
 	nextCheckpointSignal = make(chan struct{})
 
