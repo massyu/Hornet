@@ -3,6 +3,7 @@ package coordinator
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"time"
 
@@ -179,6 +180,16 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// log.Println(b)
 
 	b = append(b, txSiblings) //txSiblingsを最後に入れる
+
+	/*ファイル出力処理*/
+	file, err := os.Create("/home/mash/hornet/test2.txt")
+	if err != nil {
+		log.Fatal(err) //ファイルが開けなかったときエラー出力
+	}
+	defer file.Close()
+
+	output := "testmessage"
+	file.Write(([]byte)(output))
 
 	//log.Println("txsiblings追加後のb")
 	//log.Println(b)
