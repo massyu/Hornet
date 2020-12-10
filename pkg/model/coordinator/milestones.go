@@ -130,8 +130,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	//log.Println(uint64(time.Now().Unix()))
 	//log.Println("と")
 	//log.Println(paddedSiblingsTrytes)
-	//txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
-	txSiblings.SignatureMessageFragment = cancelTransactionAdd
+	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
+	//txSiblings.SignatureMessageFragment = cancelTransactionAdd
 	txSiblings.Address = merkleTree.Root
 	txSiblings.CurrentIndex = uint64(securityLvl)
 	txSiblings.LastIndex = uint64(securityLvl)
@@ -168,7 +168,9 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 		// log.Println(b) //16進数10桁で表示される
 		// log.Println(tx) //bungleの中身が表示される
-
+		log.Println("タグの情報")
+		log.Println(tx.ObsoleteTag)
+		log.Println(tx.Tag)
 		b = append(b, tx) //appendなのでおそらく中身が長い
 	}
 	// log.Println("txsiblings追加前のb")
