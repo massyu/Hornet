@@ -70,7 +70,7 @@ var (
 )
 
 func SetCancelSignal() {
-	cancelMilestoneSignal = make(chan struct{}, 1)
+	nextMilestoneSignal = make(chan struct{}, 1)
 	log.Info("cancelMilestoneSignalをセットしました")
 }
 
@@ -114,7 +114,7 @@ func initCoordinator(bootstrap bool, startIndex uint32, powHandler *powpackage.H
 	// lost if checkpoint is generated at the same time
 	nextMilestoneSignal = make(chan struct{}, 1)
 
-	cancelMilestoneSignal = make(chan struct{}) //初期値は0(false)
+	cancelMilestoneSignal = make(chan struct{}, 1) //初期値は0(false)
 
 	maxTrackedTails = config.NodeConfig.GetInt(config.CfgCoordinatorCheckpointsMaxTrackedTails)
 
@@ -151,8 +151,8 @@ func run(plugin *node.Plugin) {
 		timeutil.Ticker(func() {
 			// issue next milestone
 			select {
-			case nextMilestoneSignal <- struct{}{}:
 			case cancelMilestoneSignal <- struct{}{}:
+			case nextMilestoneSignal <- struct{}{}:
 			default:
 				// do not block if already another signal is waiting
 			}
@@ -205,6 +205,50 @@ func run(plugin *node.Plugin) {
 				lastCheckpointIndex++
 				lastCheckpointHash = checkpointHash
 
+			case <-nextMilestoneSignal:
+				cancelTransactionAdd := "not cancelTransaction"
+				log.Info("cancelMilestoneSignal is not called")
+				log.Info("cancelMilestoneSignalの値は")
+				log.Info(cancelMilestoneSignal)
+
+				// issue a new checkpoint right in front of the milestone
+				tips, err := selector.SelectTips(1)
+				if err != nil {
+					// issuing checkpoint failed => not critical
+					if err != mselection.ErrNoTipsAvailable {
+						log.Warn(err)
+					}
+				} else {
+					checkpointHash, err := coo.IssueCheckpoint(lastCheckpointIndex, lastCheckpointHash, tips)
+					if err != nil {
+						// issuing checkpoint failed => not critical
+						log.Warn(err)
+					} else {
+						// use the new checkpoint hash
+						lastCheckpointHash = checkpointHash
+					}
+				}
+
+				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, false, cancelTransactionAdd)
+				if criticalErr != nil {
+					log.Panic(criticalErr)
+				}
+				if err != nil {
+					if err == tangle.ErrNodeNotSynced {
+						// Coordinator is not synchronized, trigger the solidifier manually
+						tangleplugin.TriggerSolidifier()
+					}
+					log.Warn(err)
+					continue
+				}
+
+				// remember the last milestone hash
+				lastMilestoneHash = milestoneHash
+
+				// reset the checkpoints
+				lastCheckpointHash = milestoneHash
+				lastCheckpointIndex = 0
+
 			case <-cancelMilestoneSignal:
 				cancelTransactionAdd := "cancelTransaction is called!!"
 				log.Info("cancelMilestoneSignal is called")
@@ -250,50 +294,6 @@ func run(plugin *node.Plugin) {
 
 				cancelMilestoneSignal = make(chan struct{})
 				log.Info("cancelMilestone is Issued")
-
-			case <-nextMilestoneSignal:
-				cancelTransactionAdd := "not cancelTransaction"
-				log.Info("cancelMilestoneSignal is not called")
-				log.Info("cancelMilestoneSignalの値は")
-				log.Info(cancelMilestoneSignal)
-
-				// issue a new checkpoint right in front of the milestone
-				tips, err := selector.SelectTips(1)
-				if err != nil {
-					// issuing checkpoint failed => not critical
-					if err != mselection.ErrNoTipsAvailable {
-						log.Warn(err)
-					}
-				} else {
-					checkpointHash, err := coo.IssueCheckpoint(lastCheckpointIndex, lastCheckpointHash, tips)
-					if err != nil {
-						// issuing checkpoint failed => not critical
-						log.Warn(err)
-					} else {
-						// use the new checkpoint hash
-						lastCheckpointHash = checkpointHash
-					}
-				}
-
-				milestoneHash, err, criticalErr := coo.IssueMilestone(lastMilestoneHash, lastCheckpointHash, false, cancelTransactionAdd)
-				if criticalErr != nil {
-					log.Panic(criticalErr)
-				}
-				if err != nil {
-					if err == tangle.ErrNodeNotSynced {
-						// Coordinator is not synchronized, trigger the solidifier manually
-						tangleplugin.TriggerSolidifier()
-					}
-					log.Warn(err)
-					continue
-				}
-
-				// remember the last milestone hash
-				lastMilestoneHash = milestoneHash
-
-				// reset the checkpoints
-				lastCheckpointHash = milestoneHash
-				lastCheckpointIndex = 0
 
 			case <-shutdownSignal:
 				break coordinatorLoop
