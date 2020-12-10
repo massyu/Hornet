@@ -151,6 +151,7 @@ func run(plugin *node.Plugin) {
 		timeutil.Ticker(func() {
 			// issue next milestone
 			select {
+			case cancelMilestoneSignal <- struct{}{}:
 			case nextMilestoneSignal <- struct{}{}:
 			default:
 				// do not block if already another signal is waiting
