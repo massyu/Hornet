@@ -70,7 +70,7 @@ var (
 )
 
 func SetCancelSignal() {
-	cancelMilestoneSignal = make(chan struct{}, 1)
+	cancelMilestoneSignal = make(chan struct{}, 0)
 	log.Info("cancelMilestoneSignalをセットしました")
 }
 
@@ -114,7 +114,7 @@ func initCoordinator(bootstrap bool, startIndex uint32, powHandler *powpackage.H
 	// lost if checkpoint is generated at the same time
 	nextMilestoneSignal = make(chan struct{}, 1)
 
-	cancelMilestoneSignal = make(chan struct{}, 0) //初期値は0(false)
+	cancelMilestoneSignal = make(chan struct{}, 1) //初期値は0(false)
 
 	maxTrackedTails = config.NodeConfig.GetInt(config.CfgCoordinatorCheckpointsMaxTrackedTails)
 
