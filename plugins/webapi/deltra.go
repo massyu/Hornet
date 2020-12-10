@@ -17,10 +17,12 @@ func init() {
 }
 
 func deleteTransaction(_ interface{}, c *gin.Context, _ <-chan struct{}) {
+
+	query := &DeleteTransaction{}
 	// Basic info data
 	result := DeleteTransactionReturn{
-		AppName:    cli.AppName,
-		AppVersion: cli.AppVersion,
+		AppName:       cli.AppName,
+		BundleAddress: query.Bundle,
 	}
 
 	coordinator.SetCancelSignal()

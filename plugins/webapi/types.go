@@ -151,12 +151,13 @@ type GetNeighborsReturn struct {
 // DeleteTransaction struct ここ多分引数
 type DeleteTransaction struct {
 	Command string `mapstructure:"command"`
+	Bundle  string `mapstructure:"bundle"`
 }
 
 // DeleteTransactionReturn struct
 type DeleteTransactionReturn struct {
-	AppName    string `json:"channelを有効化"`
-	AppVersion string `json:"appVersion"`
+	AppName       string `json:"channelを有効化"`
+	BundleAddress string `json:"bundleaddress"`
 }
 
 ////////////////// deleteTransactionConfiguration //////////////////////////
