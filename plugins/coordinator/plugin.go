@@ -108,13 +108,13 @@ func initCoordinator(bootstrap bool, startIndex uint32, powHandler *powpackage.H
 		time.Duration(config.NodeConfig.GetInt(config.CfgCoordinatorTipselectHeaviestBranchSelectionDeadlineMilliseconds))*time.Millisecond,
 	)
 
+	cancelMilestoneSignal = make(chan struct{}, 1)
+
 	nextCheckpointSignal = make(chan struct{})
 
 	// must be a buffered channel, otherwise signal gets
 	// lost if checkpoint is generated at the same time
 	nextMilestoneSignal = make(chan struct{}, 1)
-
-	cancelMilestoneSignal = make(chan struct{}, 0)
 
 	maxTrackedTails = config.NodeConfig.GetInt(config.CfgCoordinatorCheckpointsMaxTrackedTails)
 
