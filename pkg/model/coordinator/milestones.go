@@ -120,19 +120,14 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 	log.Println("isCancelの値は")
 	log.Println(isCancel)
-	log.Println("signatuireの値" + paddedSiblingsTrytes)
+	// log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
 		txSiblings.Tag = cancelTransactionAdd
-		log.Println(cancelTransactionAdd + "SignatureMessageFragmentがアドレス値で発行されたよ")
+		// log.Println(cancelTransactionAdd + "SignatureMessageFragment is issued as address")
 	} else {
 		txSiblings.Tag = tag
 	}
 
-	//log.Println(tag)
-	//log.Println("と")
-	//log.Println(uint64(time.Now().Unix()))
-	//log.Println("と")
-	//log.Println(paddedSiblingsTrytes)
 	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	//txSiblings.SignatureMessageFragment = cancelTransactionAdd
 	txSiblings.Address = merkleTree.Root
@@ -181,15 +176,16 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 	b = append(b, txSiblings) //txSiblingsを最後に入れる
 
-	/*ファイル出力処理*/
-	file, err := os.Create("/home/mash/hornet/test2.txt")
+	/*******************ファイル出力処理*********************/
+	//file, err := os.Create("/home/mash/hornet/test2.txt")
+	file, err := os.OpenFile("/home/mash/hornet/test2.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
 		log.Fatal(err) //ファイルが開けなかったときエラー出力
 	}
 	defer file.Close()
 
-	output := "testmessage"
-	file.Write(([]byte)(output))
+	fmt.Fprintln(file, "書き込み〜！") //書き込み
+	/*******************************************************/
 
 	//log.Println("txsiblings追加後のb")
 	//log.Println(b)
