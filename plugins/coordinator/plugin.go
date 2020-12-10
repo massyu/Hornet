@@ -66,8 +66,12 @@ var (
 	ErrDatabaseTainted = errors.New("database is tainted. delete the coordinator database and start again with a local snapshot")
 	ErrTailTxNotFound  = errors.New("tail transaction not found in bundle")
 
-	test = "test"
+	Test = "test"
 )
+
+func Testtest() {
+	log.Info("test1")
+}
 
 func configure(plugin *node.Plugin) {
 	log = logger.NewLogger(plugin.Name)
