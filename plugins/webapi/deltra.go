@@ -23,8 +23,7 @@ func deleteTransaction(_ interface{}, c *gin.Context, _ <-chan struct{}) {
 		AppVersion: cli.AppVersion,
 	}
 
-	log.Info(coordinator.Test)
-	coordinator.Testtest()
+	coordinator.SetCancelSignal()
 
 	// Return node info
 	c.JSON(http.StatusOK, result)

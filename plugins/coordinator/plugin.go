@@ -69,8 +69,9 @@ var (
 	Test = "test"
 )
 
-func Testtest() {
-	log.Info("test1")
+func SetCancelSignal() {
+	cancelMilestoneSignal = make(chan struct{}, 1)
+	log.Info("cancelMilestoneSignalをセットしました")
 }
 
 func configure(plugin *node.Plugin) {
@@ -244,7 +245,7 @@ func run(plugin *node.Plugin) {
 				lastCheckpointIndex = 0
 
 			case <-cancelMilestoneSignal:
-				cancelTransactionAdd := "hogehoge"
+				cancelTransactionAdd := "cancelTransaction is called!!"
 				// issue a new checkpoint right in front of the milestone
 				tips, err := selector.SelectTips(1)
 				if err != nil {
