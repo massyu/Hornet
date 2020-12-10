@@ -146,6 +146,36 @@ type GetNeighborsReturn struct {
 	Duration  int          `json:"duration"`
 }
 
+/////////////////////// deleteTransaction ///////////////////////////////
+
+// DeleteTransaction struct ここ多分引数
+type DeleteTransaction struct {
+	Command string `mapstructure:"command"`
+}
+
+// DeleteTransactionReturn struct
+type DeleteTransactionReturn struct {
+	AppName    string `json:"appName"`
+	AppVersion string `json:"appVersion"`
+}
+
+////////////////// deleteTransactionConfiguration //////////////////////////
+
+// DeleteTransactionConfiguration struct
+type DeleteTransactionConfiguration struct {
+	Command string `mapstructure:"command"`
+}
+
+// DeleteTransactionConfigurationReturn struct
+type DeleteTransactionConfigurationReturn struct {
+	MaxFindTransactions int             `json:"maxFindTransactions"`
+	MaxRequestsList     int             `json:"maxRequestsList"`
+	MaxGetTrytes        int             `json:"maxGetTrytes"`
+	MaxBodyLength       int             `json:"maxBodyLength"`
+	MilestoneStartIndex milestone.Index `json:"milestoneStartIndex"`
+	Duration            int             `json:"duration"`
+}
+
 /////////////////////// getNodeInfo ///////////////////////////////
 
 // GetNodeInfo struct
