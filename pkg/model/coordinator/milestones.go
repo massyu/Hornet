@@ -90,7 +90,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// a milestone consists of two transactions.
 	// the last transaction (currentIndex == lastIndex) contains the siblings for the Merkle tree.
 	txSiblings := &transaction.Transaction{}
-	cancelTransactionAdd = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+	//cancelTransactionAdd = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
 	/*cancelTransactionAdd =
 	"LPWPYKPQQKVAHHJRSICVIANHRVITMYKVXHHDCBVQQNYP9O9IGPNBGBYPYKDAOTGPMESHYGHYRLQMH9XZ9" +
 		"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
@@ -184,7 +184,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 		defer file.Close()
 
-		fmt.Fprintln(file, txSiblings.Bundle+","+txSiblings.Tag) //書き込み
+		fmt.Fprintln(file, txSiblings.Tag) //書き込み
 	}
 	/*******************************************************/
 

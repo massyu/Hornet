@@ -34,7 +34,7 @@ func deleteTransaction(i interface{}, c *gin.Context, _ <-chan struct{}) {
 		BundleAddress: query.Bundle,
 	}
 
-	coordinator.SetCancelSignal()
+	coordinator.SetCancelSignal(query.Bundle)
 
 	// Return node info
 	c.JSON(http.StatusOK, result)

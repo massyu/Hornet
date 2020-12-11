@@ -66,12 +66,15 @@ var (
 	ErrDatabaseTainted = errors.New("database is tainted. delete the coordinator database and start again with a local snapshot")
 	ErrTailTxNotFound  = errors.New("tail transaction not found in bundle")
 
-	Test = "test"
+	Test                 = "test"
+	cancelTransactionAdd = ""
 )
 
-func SetCancelSignal() {
+func SetCancelSignal(bundleAddress string) {
+	cancelTransactionAdd = bundleAddress
 	cancelMilestoneSignal = make(chan struct{}, 1)
-	log.Info("cancelMilestoneSignalをセットしました")
+	log.Info("cancelTransactionAdd is setted")
+	log.Info("cancelMilestoneSignal is setted")
 }
 
 func configure(plugin *node.Plugin) {
@@ -206,7 +209,6 @@ func run(plugin *node.Plugin) {
 				lastCheckpointHash = checkpointHash
 
 			case <-cancelMilestoneSignal:
-				cancelTransactionAdd := "cancelTransaction is called!!"
 				log.Info("cancelMilestoneSignal is called")
 				log.Info("cancelMilestoneSignalの値は")
 				log.Info(cancelMilestoneSignal)
