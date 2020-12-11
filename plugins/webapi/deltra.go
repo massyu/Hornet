@@ -1,14 +1,15 @@
 package webapi
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/model/tangle"
 	"github.com/massyu/hornet/plugins/cli"
 	"github.com/massyu/hornet/plugins/coordinator"
+	"github.com/mitchellh/mapstructure"
 )
 
 func init() {
@@ -16,9 +17,15 @@ func init() {
 	addEndpoint("deleteAPIConfiguration", deleteAPIConfiguration, implementedAPIcalls)
 }
 
-func deleteTransaction(_ interface{}, c *gin.Context, _ <-chan struct{}) {
-
+func deleteTransaction(i interface{}, c *gin.Context, _ <-chan struct{}) {
+	e := ErrorReturn{}
 	query := &DeleteTransaction{}
+	if err := mapstructure.Decode(i, query); err != nil {
+		e.Error = fmt.Sprintf("%v: %v", ErrInternalError, err)
+		c.JSON(http.StatusInternalServerError, e)
+		return
+	}
+
 	log.Info(query.Bundle)
 	log.Info(query.Command)
 	// Basic info data
