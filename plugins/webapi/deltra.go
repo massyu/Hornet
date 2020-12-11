@@ -19,6 +19,8 @@ func init() {
 func deleteTransaction(_ interface{}, c *gin.Context, _ <-chan struct{}) {
 
 	query := &DeleteTransaction{}
+	log.Info(query.Bundle)
+	log.Info(query.Command)
 	// Basic info data
 	result := DeleteTransactionReturn{
 		AppName:       cli.AppName,
