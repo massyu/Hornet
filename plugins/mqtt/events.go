@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/iotaledger/iota.go/transaction"
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/transaction"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

@@ -3,8 +3,8 @@ package pow
 import (
 	"time"
 
-	"github.com/iotaledger/iota.go/pow"
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/pow"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hive.go/logger"
 	"github.com/massyu/hive.go/syncutils"

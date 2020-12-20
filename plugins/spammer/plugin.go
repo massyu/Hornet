@@ -7,14 +7,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/iotaledger/iota.go/bundle"
-	"github.com/iotaledger/iota.go/transaction"
 	"github.com/massyu/hive.go/daemon"
 	"github.com/massyu/hive.go/events"
 	"github.com/massyu/hive.go/logger"
 	"github.com/massyu/hive.go/node"
 	"github.com/massyu/hive.go/syncutils"
 	"github.com/massyu/hive.go/timeutil"
+	"github.com/massyu/iota.go/bundle"
+	"github.com/massyu/iota.go/transaction"
 	"go.uber.org/atomic"
 
 	"github.com/massyu/hornet/pkg/config"

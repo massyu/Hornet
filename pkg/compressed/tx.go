@@ -3,10 +3,10 @@ package compressed
 import (
 	"fmt"
 
-	"github.com/iotaledger/iota.go/consts"
-	"github.com/iotaledger/iota.go/math"
-	"github.com/iotaledger/iota.go/transaction"
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/consts"
+	"github.com/massyu/iota.go/math"
+	"github.com/massyu/iota.go/transaction"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hive.go/batchhasher"
 )

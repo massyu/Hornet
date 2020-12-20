@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/iotaledger/iota.go/address"
-	"github.com/iotaledger/iota.go/bundle"
-	"github.com/iotaledger/iota.go/consts"
-	"github.com/iotaledger/iota.go/converter"
-	"github.com/iotaledger/iota.go/kerl"
-	"github.com/iotaledger/iota.go/signing"
-	"github.com/iotaledger/iota.go/signing/key"
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/address"
+	"github.com/massyu/iota.go/bundle"
+	"github.com/massyu/iota.go/consts"
+	"github.com/massyu/iota.go/converter"
+	"github.com/massyu/iota.go/kerl"
+	"github.com/massyu/iota.go/signing"
+	"github.com/massyu/iota.go/signing/key"
+	"github.com/massyu/iota.go/trinary"
 )
 
 const (

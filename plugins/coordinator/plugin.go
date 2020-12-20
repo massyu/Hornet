@@ -7,14 +7,14 @@ import (
 
 	flag "github.com/spf13/pflag"
 
-	"github.com/iotaledger/iota.go/consts"
-	"github.com/iotaledger/iota.go/transaction"
 	"github.com/massyu/hive.go/daemon"
 	"github.com/massyu/hive.go/events"
 	"github.com/massyu/hive.go/logger"
 	"github.com/massyu/hive.go/node"
 	"github.com/massyu/hive.go/syncutils"
 	"github.com/massyu/hive.go/timeutil"
+	"github.com/massyu/iota.go/consts"
+	"github.com/massyu/iota.go/transaction"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/dag"

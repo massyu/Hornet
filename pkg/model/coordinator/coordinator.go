@@ -11,12 +11,12 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/iotaledger/iota.go/consts"
-	"github.com/iotaledger/iota.go/merkle"
-	"github.com/iotaledger/iota.go/transaction"
-	"github.com/iotaledger/iota.go/trinary"
 	"github.com/massyu/hive.go/events"
 	"github.com/massyu/hive.go/syncutils"
+	"github.com/massyu/iota.go/consts"
+	"github.com/massyu/iota.go/merkle"
+	"github.com/massyu/iota.go/transaction"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/milestone"

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/trinary"
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
 

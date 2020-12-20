@@ -12,9 +12,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/iotaledger/iota.go/consts"
 	"github.com/massyu/hive.go/kvstore"
 	"github.com/massyu/hive.go/kvstore/mapdb"
+	"github.com/massyu/iota.go/consts"
 
 	"github.com/massyu/hornet/pkg/model/coordinator"
 	"github.com/massyu/hornet/pkg/model/hornet"

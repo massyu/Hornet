@@ -8,8 +8,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/iotaledger/iota.go/address"
-	"github.com/iotaledger/iota.go/consts"
+	"github.com/massyu/iota.go/address"
+	"github.com/massyu/iota.go/consts"
 
 	"github.com/massyu/hornet/pkg/config"
 	"github.com/massyu/hornet/pkg/model/hornet"

@@ -9,7 +9,7 @@ import (
 
 	"github.com/willf/bitset"
 
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hornet/pkg/model/hornet"
 	"github.com/massyu/hornet/pkg/model/tangle"

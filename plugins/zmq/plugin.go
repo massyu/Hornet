@@ -3,7 +3,7 @@ package zmq
 import (
 	"time"
 
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hive.go/daemon"
 	"github.com/massyu/hive.go/events"

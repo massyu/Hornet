@@ -6,10 +6,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/iotaledger/iota.go/bundle"
-	"github.com/iotaledger/iota.go/pow"
-	"github.com/iotaledger/iota.go/transaction"
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/bundle"
+	"github.com/massyu/iota.go/pow"
+	"github.com/massyu/iota.go/transaction"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hornet/pkg/compressed"
 	"github.com/massyu/hornet/pkg/model/hornet"

@@ -3,10 +3,10 @@ package prometheus
 import (
 	"strconv"
 
-	"github.com/iotaledger/iota.go/consts"
 	"github.com/massyu/hornet/pkg/model/tangle"
 	"github.com/massyu/hornet/plugins/cli"
 	"github.com/massyu/hornet/plugins/gossip"
+	"github.com/massyu/iota.go/consts"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/iotaledger/iota.go/consts"
-	"github.com/iotaledger/iota.go/math"
+	"github.com/massyu/iota.go/consts"
+	"github.com/massyu/iota.go/math"
 
 	"github.com/massyu/hornet/pkg/dag"
 	"github.com/massyu/hornet/pkg/model/hornet"

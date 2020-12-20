@@ -1,7 +1,7 @@
 package webapi
 
 import (
-	"github.com/iotaledger/iota.go/trinary"
+	"github.com/massyu/iota.go/trinary"
 
 	"github.com/massyu/hornet/pkg/model/milestone"
 	"github.com/massyu/hornet/pkg/peering/peer"

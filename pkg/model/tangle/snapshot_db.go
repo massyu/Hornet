@@ -6,7 +6,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/iotaledger/iota.go/consts"
+	"github.com/massyu/iota.go/consts"
 
 	"github.com/massyu/hive.go/kvstore"
 

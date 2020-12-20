@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/iotaledger/iota.go/guards"
 	"github.com/massyu/hive.go/node"
+	"github.com/massyu/iota.go/guards"
 	"github.com/mitchellh/mapstructure"
 
 	"github.com/massyu/hornet/pkg/config"

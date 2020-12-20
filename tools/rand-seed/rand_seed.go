@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 
-	"github.com/iotaledger/iota.go/consts"
+	"github.com/massyu/iota.go/consts"
 )
 
 func main() {
