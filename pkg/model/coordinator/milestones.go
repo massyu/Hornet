@@ -227,10 +227,12 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		iotaGoBundle[i] = *b[i]
 	}
 	// validate bundle semantics and signatures
-	if err := bundle.ValidBundle(iotaGoBundle); err != nil {
-		fmt.Println(err.Error())
-		return nil, err
-	}
+	/*
+		if err := bundle.ValidBundle(iotaGoBundle); err != nil {
+			fmt.Println(err.Error())
+			return nil, err
+		}
+	*/
 	return b, nil
 }
 
