@@ -122,11 +122,14 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	log.Println(isCancel)
 	// log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
+		log.Println(cancelTransactionAdd[0:27])
 		txSiblings.Tag = cancelTransactionAdd[0:27] //Tagの定義文字数だけ切り出し
 		// log.Println(cancelTransactionAdd + "SignatureMessageFragment is issued as address")
 	} else {
 		txSiblings.Tag = tag
 	}
+	log.Println("txSiblings.Tagの値は")
+	log.Println(txSiblings.Tag)
 
 	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	//txSiblings.SignatureMessageFragment = cancelTransactionAdd
@@ -161,7 +164,11 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		tx.Bundle = consts.NullHashTrytes
 		tx.TrunkTransaction = consts.NullHashTrytes
 		tx.BranchTransaction = trunkHash.Trytes()
-		tx.Tag = tag
+		if isCancel {
+			tx.Tag = cancelTransactionAdd[0:27] //Tagの定義文字数だけ切り出し
+		} else {
+			tx.Tag = tag
+		}
 		tx.Nonce = consts.NullTagTrytes
 
 		// log.Println(b) //16進数10桁で表示される
