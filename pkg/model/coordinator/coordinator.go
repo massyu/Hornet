@@ -3,6 +3,7 @@ package coordinator
 import (
 	"crypto"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 	"time"
@@ -238,6 +239,7 @@ func (coo *Coordinator) createAndSendMilestone(trunkHash hornet.Hash, branchHash
 	if err != nil {
 		return err
 	}
+	log.Println(b) //ここまでいってるかテスト
 
 	if err := coo.sendBundleFunc(b, true); err != nil {
 		return err

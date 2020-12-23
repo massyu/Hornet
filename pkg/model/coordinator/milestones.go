@@ -122,7 +122,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	log.Println(isCancel)
 	// log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
-		log.Println(cancelTransactionAdd[0:25] + "**")
+		log.Println(cancelTransactionAdd[0:25] + "  ")
 		txSiblings.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
 		// log.Println(cancelTransactionAdd + "SignatureMessageFragment is issued as address")
 	} else {
