@@ -122,8 +122,9 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	log.Println(isCancel)
 	// log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
-		log.Println(cancelTransactionAdd[0:25] + "  ")
-		txSiblings.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
+		// log.Println(cancelTransactionAdd[0:25] + "  ")
+		// txSiblings.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
+		txSiblings.Tag = cancelTransactionAdd[0:27] //Tagの定義文字数だけ切り出し
 		// log.Println(cancelTransactionAdd + "SignatureMessageFragment is issued as address")
 	} else {
 		txSiblings.Tag = tag
@@ -165,7 +166,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		tx.TrunkTransaction = consts.NullHashTrytes
 		tx.BranchTransaction = trunkHash.Trytes()
 		if isCancel {
-			tx.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
+			// tx.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
+			tx.Tag = cancelTransactionAdd[0:27] //Tagの定義文字数だけ切り出し
 		} else {
 			tx.Tag = tag
 		}
@@ -227,12 +229,10 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		iotaGoBundle[i] = *b[i]
 	}
 	// validate bundle semantics and signatures
-	/*
-		if err := bundle.ValidBundle(iotaGoBundle); err != nil {
-			fmt.Println(err.Error())
-			return nil, err
-		}
-	*/
+	if err := bundle.ValidBundle(iotaGoBundle); err != nil {
+		fmt.Println(err.Error())
+		return nil, err
+	}
 	return b, nil
 }
 
