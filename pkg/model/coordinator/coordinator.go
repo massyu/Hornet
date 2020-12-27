@@ -249,6 +249,7 @@ func (coo *Coordinator) createAndSendMilestone(trunkHash hornet.Hash, branchHash
 	for _, tx := range b {
 		txHashes = append(txHashes, hornet.HashFromHashTrytes(tx.Hash))
 	}
+	log.Println(txHashes)
 
 	tailTx := b[0]
 
