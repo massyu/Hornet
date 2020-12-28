@@ -3,6 +3,7 @@ package tangle
 import (
 	// ビルド時のみ使用する
 	"database/sql"
+	_ "github.com/mattn/go-sqlite3"
 	"log"
 )
 
