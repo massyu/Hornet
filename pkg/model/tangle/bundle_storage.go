@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/massyu/hive.go/bitmask"
@@ -331,7 +332,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	}
 	defer file.Close()
 
-	fmt.Fprintln(file, string(cachedTx.GetTransaction().Tx.Address)+","+cachedTx.GetTransaction().Tx.Tag+","+string(cachedTx.GetTransaction().Tx.Value))
+	fmt.Fprintln(file, string(cachedTx.GetTransaction().Tx.Address)+","+cachedTx.GetTransaction().Tx.Tag+","+strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10))
 
 	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
 	// This is only used to delete unconfirmed transactions from the database at pruning
