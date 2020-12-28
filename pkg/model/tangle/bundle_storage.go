@@ -2,6 +2,7 @@ package tangle
 
 import (
 	"bytes"
+	"database/sql"
 	"encoding/binary"
 	"fmt"
 	"log"
@@ -333,6 +334,24 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	defer file.Close()
 
 	fmt.Fprintln(file, string(cachedTx.GetTransaction().Tx.Address)+","+cachedTx.GetTransaction().Tx.Tag+","+strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10))
+
+	/*****************************************************************************/
+	// DB Path(相対パスでも大丈夫かと思うが、筆者の場合、絶対パスでないと実行できなかった)
+	const dbPath = "/home/mash/hornet/db.sql"
+
+	// コネクションプールを作成
+	var DbConnection *sql.DB
+
+	// Open(driver,  sql 名(任意の名前))
+	DbConnection, _ = sql.Open("sqlite3", dbPath)
+
+	// Connection をクローズする。(defer で閉じるのが Golang の作法)
+	defer DbConnection.Close()
+
+	// データを挿入(? には、値が入る)
+	cmd := "INSERT INTO tsc (address, value, bundle, tag) VALUES (?, ?, ?, ?)"
+	DbConnection.Exec(cmd, "hoge1", 1, "hoge2", "hoge3")
+	/*****************************************************************************/
 
 	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
 	// This is only used to delete unconfirmed transactions from the database at pruning
