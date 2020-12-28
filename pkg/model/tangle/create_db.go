@@ -27,6 +27,6 @@ func create_db() {
 	defer DbConnection.Close()
 
 	// データを挿入(? には、値が入る)
-	cmd := "INSERT INTO tsc (address, value, bundle, tag) VALUES (?, ?, ?, ?)"
-	DbConnection.Exec(cmd, "hoge1", 1, "hoge2", "hoge3")
+	// cmd := "INSERT INTO tsc (address, value, bundle, tag) VALUES (?, ?, ?, ?)"
+	// DbConnection.Exec(cmd, "hoge1", 1, "hoge2", "hoge3")
 }
