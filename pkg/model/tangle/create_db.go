@@ -23,11 +23,11 @@ type Transaction struct {
 func create_db() {
 	// Open(driver,  sql 名(任意の名前))
 	log.Println("create_db1")
-	DbConnection, _ := sql.Open("sqlite3", dbPath)
+	//DbConnection, _ := sql.Open("sqlite3", dbPath)
 	log.Println("create_db2")
 
 	// Connection をクローズする。(defer で閉じるのが Golang の作法)
-	defer DbConnection.Close()
+	//defer DbConnection.Close()
 	log.Println("create_db3")
 	// データを挿入(? には、値が入る)
 	// cmd := "INSERT INTO tsc (address, value, bundle, tag) VALUES (?, ?, ?, ?)"
