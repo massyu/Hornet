@@ -15,23 +15,45 @@ const dbPath = "/home/mash/hornet/db.sql"
 var DbConnection *sql.DB
 
 // データ格納用
-type Transaction struct {
-	address string
-	value   int
+type Tsc struct {
 	bundle  string
+	address string
 	tag     string
+	value   int
 }
 
-func create_db() {
+func create_db(txBundle string, txAddress string, txTag string, txValue string) {
 	// Open(driver,  sql 名(任意の名前))
-	log.Println("create_db1")
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
-	log.Println("create_db2")
 
 	// Connection をクローズする。(defer で閉じるのが Golang の作法)
 	defer DbConnection.Close()
+
+	// blog テーブルの作成
+	cmd := `CREATE TABLE IF NOT EXISTS tsc(
+             bundle STRING,    
+             address STRING,    
+             tag STRING,    
+             value INT)`
+
+	// cmd を実行
+	// _ -> 受け取った結果に対して何もしないので、_ にする
+	_, err := DbConnection.Exec(cmd)
+
+	// エラーハンドリング(Go だと大体このパターン)
+	if err != nil {
+		// Fatalln は便利
+		// エラーが発生した場合、以降の処理を実行しない
+		log.Fatalln(err)
+	}
+
+	cmd = "INSERT INTO tsc (bundle, address, tag, value) VALUES (?, ?, ?, ?)"
+	_, err = DbConnection.Exec(cmd, "txBundle", "txAddress", "txTag Golang", txValue)
+
+	if err != nil {
+		// golang には、try-catch がない。nil か否かで判定
+		log.Fatalln(err)
+	}
+
 	log.Println("create_db3")
-	// データを挿入(? には、値が入る)
-	cmd := "INSERT INTO tsc (address, value, bundle, tag) VALUES (?, ?, ?, ?)"
-	DbConnection.Exec(cmd, "hoge1", 1, "hoge2", "hoge3")
 }
