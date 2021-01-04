@@ -59,7 +59,7 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 	//ここから挿入したデータの一覧を出力する処理
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	cmd = "SELECT * FROM tsc where address = ?"
-	row := DbConnection.Query(cmd, txAddress)
+	row := DbConnection.QueryRow(cmd, txAddress)
 
 	// データ保存領域を確保
 	var b Tsc
