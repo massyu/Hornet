@@ -64,7 +64,7 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 	// データ保存領域を確保
 	var b Tsc
 	// Scan にて、struct のアドレスにデータを入れる
-	err := row.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+	err = row.Scan(&b.bundle, &b.address, &b.tag, &b.value)
 	// エラーハンドリング(共通関数にした方がいいのかな)
 	if err != nil {
 		// シングルセレクトの場合は、エラーハンドリングが異なる

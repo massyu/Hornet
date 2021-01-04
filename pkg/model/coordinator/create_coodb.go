@@ -60,7 +60,7 @@ func create_coodb(index int, txTag string) {
 	// データ保存領域を確保
 	var b Coomile
 	// Scan にて、struct のアドレスにデータを入れる
-	err := row.Scan(&b.index, &b.tag)
+	err = row.Scan(&b.index, &b.tag)
 	// エラーハンドリング(共通関数にした方がいいのかな)
 	if err != nil {
 		// シングルセレクトの場合は、エラーハンドリングが異なる
