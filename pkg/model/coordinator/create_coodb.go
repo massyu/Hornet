@@ -3,6 +3,7 @@ package coordinator
 import (
 	// ビルド時のみ使用する
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -20,7 +21,7 @@ type Coomile struct {
 	tag    string
 }
 
-func create_coodb(txBundle string txTag string) {
+func create_coodb(txBundle string, txTag string) {
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
 
