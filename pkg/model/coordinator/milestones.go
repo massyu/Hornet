@@ -72,6 +72,8 @@ func createCheckpoint(trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, po
 // createMilestone creates a signed milestone bundle.
 func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
 	log.Println("発行するmilestone:" + cancelTransactionAdd)
+	log.Println("milestoneindex:")
+	log.Println(index)
 	// get the siblings in the current Merkle tree
 	leafSiblings, err := merkleTree.AuditPath(uint32(index))
 	if err != nil {
@@ -177,7 +179,6 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		log.Println("タグの情報")
 		log.Println(tx.ObsoleteTag)
 		log.Println(tx.Tag)
-		log.Println(txIndex)
 		b = append(b, tx) //appendなのでおそらく中身が長い
 	}
 	// log.Println("txsiblings追加前のb")
