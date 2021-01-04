@@ -3,7 +3,6 @@ package coordinator
 import (
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"time"
 
@@ -186,14 +185,19 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	b = append(b, txSiblings) //txSiblingsを最後に入れる
 
 	/*******************ファイル出力処理*********************/
-	if isCancel {
-		file, err := os.OpenFile("/home/mash/hornet/bundledata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
-		if err != nil {
-			log.Fatal(err) //ファイルが開けなかったときエラー出力
-		}
-		defer file.Close()
+	/*
+		if isCancel {
+			file, err := os.OpenFile("/home/mash/hornet/bundledata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+			if err != nil {
+				log.Fatal(err) //ファイルが開けなかったときエラー出力
+			}
+			defer file.Close()
 
-		fmt.Fprintln(file, txSiblings.Tag) //書き込み
+			fmt.Fprintln(file, txSiblings.Tag) //書き込み
+		}
+	*/
+	if isCancel {
+		create_coodb(txSiblings.Bundle, txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/
 
