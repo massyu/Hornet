@@ -55,7 +55,7 @@ func create_coodb(index int, txTag string) {
 	/*ここから挿入したデータの一覧を出力する処理*/
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	cmd = "SELECT * FROM coomile where index = ?"
-	row, _ := DbConnection.QueryRow(cmd, index)
+	row := DbConnection.QueryRow(cmd, index)
 
 	// データ保存領域を確保
 	var b Coomile

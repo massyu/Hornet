@@ -199,7 +199,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 	*/
 	if isCancel {
-		create_coodb(index, txSiblings.Tag) //Tagだけ使う
+		create_coodb(int(index), txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/
 
