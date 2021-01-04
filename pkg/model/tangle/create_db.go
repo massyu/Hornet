@@ -56,7 +56,33 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 		log.Fatalln(err)
 	}
 
-	/*ここから挿入したデータの一覧を出力する処理*/
+	//ここから挿入したデータの一覧を出力する処理
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	cmd = "SELECT * FROM tsc where address = ?"
+	row, _ := DbConnection.Query(cmd, txAddress)
+
+	// データ保存領域を確保
+	var b Tsc
+	// Scan にて、struct のアドレスにデータを入れる
+	err := row.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+	// エラーハンドリング(共通関数にした方がいいのかな)
+	if err != nil {
+		// シングルセレクトの場合は、エラーハンドリングが異なる
+		if err == sql.ErrNoRows {
+			log.Println("There is no row!!!")
+		} else {
+			log.Println(err)
+		}
+	}
+
+	fmt.Println(b.bundle, b.address, b.tag, b.value)
+
+	log.Println("create_db")
+}
+
+/* DBに全データを表示させる場合
+func create_db(txBundle string, txAddress string, txTag string, txValue string) {
+	//ここから挿入したデータの一覧を出力する処理
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	cmd = "SELECT * FROM tsc"
 	rows, _ := DbConnection.Query(cmd)
@@ -84,3 +110,4 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 
 	log.Println("create_db")
 }
+*/

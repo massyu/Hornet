@@ -17,11 +17,11 @@ var DbConnection *sql.DB
 
 // データ格納用
 type Coomile struct {
-	bundle string
-	tag    string
+	index int
+	tag   string
 }
 
-func create_coodb(txBundle string, txTag string) {
+func create_coodb(index int, txTag string) {
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
 
@@ -30,7 +30,7 @@ func create_coodb(txBundle string, txTag string) {
 
 	// blog テーブルの作成
 	cmd := `CREATE TABLE IF NOT EXISTS coomile(
-             bundle STRING,        
+             index INT,        
              tag STRING)`
 
 	// cmd を実行
@@ -44,8 +44,8 @@ func create_coodb(txBundle string, txTag string) {
 		log.Fatalln(err)
 	}
 
-	cmd = "INSERT INTO coomile (bundle, tag) VALUES (?, ?)"
-	_, err = DbConnection.Exec(cmd, txBundle, txTag)
+	cmd = "INSERT INTO coomile (index, tag) VALUES (?, ?)"
+	_, err = DbConnection.Exec(cmd, index, txTag)
 
 	if err != nil {
 		// golang には、try-catch がない。nil か否かで判定
@@ -54,29 +54,23 @@ func create_coodb(txBundle string, txTag string) {
 
 	/*ここから挿入したデータの一覧を出力する処理*/
 	// マルチプルセレクト(今度は、_ ではなく、rows)
-	cmd = "SELECT * FROM coomile"
-	rows, _ := DbConnection.Query(cmd)
-
-	defer rows.Close()
+	cmd = "SELECT * FROM coomile where index = ?"
+	row, _ := DbConnection.QueryRow(cmd, index)
 
 	// データ保存領域を確保
-	var bg []Coomile
-	for rows.Next() {
-		var b Coomile
-		// Scan にて、struct のアドレスにデータを入れる
-		err := rows.Scan(&b.bundle, &b.tag)
-		// エラーハンドリング(共通関数にした方がいいのかな)
-		if err != nil {
+	var b Coomile
+	// Scan にて、struct のアドレスにデータを入れる
+	err := row.Scan(&b.index, &b.tag)
+	// エラーハンドリング(共通関数にした方がいいのかな)
+	if err != nil {
+		// シングルセレクトの場合は、エラーハンドリングが異なる
+		if err == sql.ErrNoRows {
+			log.Println("There is no row!!!")
+		} else {
 			log.Println(err)
 		}
-		// データ取得
-		bg = append(bg, b)
 	}
-
-	// 操作結果を確認
-	for _, b := range bg {
-		fmt.Println(b.bundle, b.tag)
-	}
+	fmt.Println(b.index, b.tag)
 
 	log.Println("create_coodb")
 }
