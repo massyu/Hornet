@@ -177,6 +177,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		log.Println("タグの情報")
 		log.Println(tx.ObsoleteTag)
 		log.Println(tx.Tag)
+		log.Println(txIndex)
 		b = append(b, tx) //appendなのでおそらく中身が長い
 	}
 	// log.Println("txsiblings追加前のb")
@@ -197,7 +198,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 	*/
 	if isCancel {
-		create_coodb(txSiblings.Bundle, txSiblings.Tag) //Tagだけ使う
+		create_coodb(txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/
 
