@@ -3,6 +3,7 @@ package coordinator
 import (
 	"fmt"
 	"log"
+	"strconv"
 	"strings"
 	"time"
 
@@ -199,7 +200,9 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 	*/
 	if isCancel {
-		create_coodb(int(index), txSiblings.Tag) //Tagだけ使う
+		var toInt int
+		toInt, _ = strconv.Atoi(index)
+		create_coodb(toInt, txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/
 
