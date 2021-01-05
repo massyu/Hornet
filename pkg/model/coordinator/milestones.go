@@ -199,6 +199,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 			fmt.Fprintln(file, txSiblings.Tag) //書き込み
 		}
 	*/
+
 	if isCancel {
 		convertedString := strconv.FormatUint(uint64(index), 10)
 		convertedInt, _ := strconv.Atoi(convertedString)

@@ -336,8 +336,8 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
-
 	create_db(txBundle, txAddress, txTag, txValue)
+	check_db(txBundle)
 
 	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
 	// This is only used to delete unconfirmed transactions from the database at pruning

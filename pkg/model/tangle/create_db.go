@@ -88,7 +88,7 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 	log.Println("create_db")
 }
 
-func check_db(txBundle string, txAddress string) {
+func check_db(txBundle string) {
 	log.Println("check_db開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
@@ -118,7 +118,7 @@ func check_db(txBundle string, txAddress string) {
 		}
 	}
 
-	if count = 0 {
+	if count == 0 {
 		log.Println("normal transaction")
 	} else {
 		log.Println("iscanselled transaction")
