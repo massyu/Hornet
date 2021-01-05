@@ -52,6 +52,34 @@ func create_coodb(txIndex int, txTag string) {
 		log.Fatalln(err)
 	}
 
+	/////////////////////////////////////////////////////
+	log.Println("coomileの全データ表示")
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	cmd = "SELECT * FROM coomile"
+	rows, _ := DbConnection.Query(cmd)
+
+	defer rows.Close()
+
+	// データ保存領域を確保
+	var bg []Coomile
+	for rows.Next() {
+		var b Coomile
+		// Scan にて、struct のアドレスにデータを入れる
+		err := rows.Scan(&b.mindex, &b.tag)
+		// エラーハンドリング(共通関数にした方がいいのかな)
+		if err != nil {
+			log.Println(err)
+		}
+		// データ取得
+		bg = append(bg, b)
+	}
+
+	// 操作結果を確認
+	for _, b := range bg {
+		fmt.Println(b.mindex, b.tag)
+	}
+	/////////////////////////////////////////////////////
+
 	/*ここから挿入したデータの一覧を出力する処理*/
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	log.Println("動いてる5")
