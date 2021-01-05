@@ -43,6 +43,7 @@ func create_coodb(txIndex int, txTag string) {
 	if err != nil {
 		// Fatalln は便利
 		// エラーが発生した場合、以降の処理を実行しない
+		log.Println("動いてない3.3")
 		log.Fatalln(err)
 	}
 	log.Println("動いてる4")
