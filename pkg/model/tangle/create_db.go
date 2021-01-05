@@ -107,7 +107,7 @@ func check_db(txBundle string) {
 	// Scan にて、struct のアドレスにデータを入れる
 	var count int
 	log.Println("取り消された取引がDB内に存在するか確認中……")
-	err = row.Scan(&count)
+	err := row.Scan(&count)
 	// エラーハンドリング(共通関数にした方がいいのかな)
 	if err != nil {
 		// シングルセレクトの場合は、エラーハンドリングが異なる
