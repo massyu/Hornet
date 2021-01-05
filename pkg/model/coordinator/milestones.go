@@ -3,7 +3,6 @@ package coordinator
 import (
 	"fmt"
 	"log"
-	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -201,12 +200,9 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		}
 	*/
 	if isCancel {
-		log.Println("動いてる1")
 		convertedString := strconv.FormatUint(uint64(index), 10)
-		log.Println("動いてる2")
 		convertedInt, _ := strconv.Atoi(convertedString)
-		log.Println("動いてる3")
-		fmt.Println(reflect.TypeOf(convertedInt))
+		// fmt.Println(reflect.TypeOf(convertedInt))
 		create_coodb(convertedInt, txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/

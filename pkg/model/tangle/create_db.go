@@ -11,6 +11,7 @@ import (
 
 // DB Path(相対パスでも大丈夫かと思うが、筆者の場合、絶対パスでないと実行できなかった)
 const dbPath = "/home/mash/hornet/db.sql"
+const coodbPath = "/home/mash/hornet/coodb.sql"
 
 // コネクションプールを作成
 var DbConnection *sql.DB
@@ -21,6 +22,12 @@ type Tsc struct {
 	address string
 	tag     string
 	value   int
+}
+
+// データ格納用
+type Coomile struct {
+	mindex int
+	tag    string
 }
 
 func create_db(txBundle string, txAddress string, txTag string, txValue string) {
@@ -79,6 +86,44 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 	fmt.Println(b.bundle, b.address, b.tag, b.value)
 
 	log.Println("create_db")
+}
+
+func check_db(txBundle string, txAddress string) {
+	log.Println("check_db開始")
+	// Open(driver,  sql 名(任意の名前))
+	DbConnection, _ := sql.Open("sqlite3", coodbPath)
+
+	// Connection をクローズする。(defer で閉じるのが Golang の作法)
+	defer DbConnection.Close()
+
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	checkBundle := txBundle[0:27]
+	cmd := "SELECT COUNT(*) FROM coomile where tag = ?"
+	row := DbConnection.QueryRow(cmd, checkBundle)
+
+	// データ保存領域を確保
+	var b Coomile
+	// Scan にて、struct のアドレスにデータを入れる
+	var count int
+	log.Println("取り消された取引がDB内に存在するか確認中……")
+	err = row.Scan(&count)
+	// エラーハンドリング(共通関数にした方がいいのかな)
+	if err != nil {
+		// シングルセレクトの場合は、エラーハンドリングが異なる
+		if err == sql.ErrNoRows {
+			log.Println("There is no row!!!")
+		} else {
+			log.Println(err)
+		}
+	}
+
+	if count = 0 {
+		log.Println("normal transaction")
+	} else {
+		log.Println("iscanselled transaction")
+	}
+	fmt.Println(count)
+	log.Println("end_check_db")
 }
 
 /* DBに全データを表示させる場合

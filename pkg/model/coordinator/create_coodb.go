@@ -25,7 +25,7 @@ func create_coodb(txIndex int, txTag string) {
 	log.Println("create_coodb開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
-	log.Println("動いてる3.1")
+
 	// Connection をクローズする。(defer で閉じるのが Golang の作法)
 	defer DbConnection.Close()
 
@@ -37,16 +37,13 @@ func create_coodb(txIndex int, txTag string) {
 	// cmd を実行
 	// _ -> 受け取った結果に対して何もしないので、_ にする
 	_, err := DbConnection.Exec(cmd)
-	log.Println("動いてる3.2")
 
 	// エラーハンドリング(Go だと大体このパターン)
 	if err != nil {
 		// Fatalln は便利
 		// エラーが発生した場合、以降の処理を実行しない
-		log.Println("動いてない3.3")
 		log.Fatalln(err)
 	}
-	log.Println("動いてる4")
 	cmd = "INSERT INTO coomile (mindex, tag) VALUES (?, ?)"
 	_, err = DbConnection.Exec(cmd, txIndex, txTag)
 
