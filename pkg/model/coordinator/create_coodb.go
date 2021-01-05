@@ -25,18 +25,19 @@ func create_coodb(txIndex int, txTag string) {
 	log.Println("create_coodb開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
-
+	log.Println("動いてる3.1")
 	// Connection をクローズする。(defer で閉じるのが Golang の作法)
 	defer DbConnection.Close()
 
 	// blog テーブルの作成
 	cmd := `CREATE TABLE IF NOT EXISTS coomile(
-             index INT,        
-             tag STRING)`
+			index INT,    
+			tag STRING)`
 
 	// cmd を実行
 	// _ -> 受け取った結果に対して何もしないので、_ にする
 	_, err := DbConnection.Exec(cmd)
+	log.Println("動いてる3.2")
 
 	// エラーハンドリング(Go だと大体このパターン)
 	if err != nil {

@@ -3,6 +3,7 @@ package coordinator
 import (
 	"fmt"
 	"log"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -205,7 +206,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		log.Println("動いてる2")
 		convertedInt, _ := strconv.Atoi(convertedString)
 		log.Println("動いてる3")
-		log.Println(convertedInt)
+		fmt.Println(reflect.TypeOf(convertedInt))
 		create_coodb(convertedInt, txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/
