@@ -103,7 +103,7 @@ func check_db(txBundle string) {
 	row := DbConnection.QueryRow(cmd, checkBundle)
 
 	// データ保存領域を確保
-	var b Coomile
+	// var b Coomile
 	// Scan にて、struct のアドレスにデータを入れる
 	var count int
 	log.Println("取り消された取引がDB内に存在するか確認中……")
