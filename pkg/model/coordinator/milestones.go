@@ -201,7 +201,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	*/
 	if isCancel {
 		convertedString := strconv.FormatUint(uint64(index), 10)
-		convertedInt = strconv.Itoa(convertedString)
+		convertedInt ;= strconv.Itoa(convertedString)
 		create_coodb(convertedInt, txSiblings.Tag) //Tagだけ使う
 	}
 	/*******************************************************/
