@@ -98,6 +98,7 @@ func check_db(txBundle string, txAddress string) {
 
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	checkBundle := txBundle[0:27]
+	log.Println("checkBundle is " + checkBundle)
 	cmd := "SELECT COUNT(*) FROM coomile where tag = ?"
 	row := DbConnection.QueryRow(cmd, checkBundle)
 
