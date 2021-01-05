@@ -17,8 +17,8 @@ var DbConnection *sql.DB
 
 // データ格納用
 type Coomile struct {
-	index int
-	tag   string
+	mindex int
+	tag    string
 }
 
 func create_coodb(txIndex int, txTag string) {
@@ -31,7 +31,7 @@ func create_coodb(txIndex int, txTag string) {
 
 	// blog テーブルの作成
 	cmd := `CREATE TABLE IF NOT EXISTS coomile(
-			index INT,    
+			mindex INT,    
 			tag STRING)`
 
 	// cmd を実行
@@ -47,7 +47,7 @@ func create_coodb(txIndex int, txTag string) {
 		log.Fatalln(err)
 	}
 	log.Println("動いてる4")
-	cmd = "INSERT INTO coomile (index, tag) VALUES (?, ?)"
+	cmd = "INSERT INTO coomile (mindex, tag) VALUES (?, ?)"
 	_, err = DbConnection.Exec(cmd, txIndex, txTag)
 
 	if err != nil {
@@ -58,7 +58,7 @@ func create_coodb(txIndex int, txTag string) {
 	/*ここから挿入したデータの一覧を出力する処理*/
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	log.Println("動いてる5")
-	cmd = "SELECT * FROM coomile where index = ?"
+	cmd = "SELECT * FROM coomile where mindex = ?"
 	row := DbConnection.QueryRow(cmd, txIndex)
 
 	// データ保存領域を確保
