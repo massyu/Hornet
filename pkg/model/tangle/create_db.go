@@ -96,8 +96,13 @@ func check_db(txBundle string) {
 	// Connection をクローズする。(defer で閉じるのが Golang の作法)
 	defer DbConnection.Close()
 
+	// 出力確認テスト
+	sumplebundle := XEDGCCJAZWG9VEASUVFLUUSPUX9DYITKWWAIPFHYGGZYLTTFPSQEENEZ9SE9ORH9YADGWCFBIBUTPXLKW
+
 	// マルチプルセレクト(今度は、_ ではなく、rows)
-	checkBundle := txBundle[0:27]
+	// checkBundle := txBundle[0:27]
+	checkBundle := sumplebundle[0:27]
+
 	log.Println("checkBundle is " + checkBundle)
 	cmd := "SELECT COUNT(*) FROM coomile where tag = ?"
 	row := DbConnection.QueryRow(cmd, checkBundle)
