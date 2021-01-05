@@ -21,7 +21,8 @@ type Coomile struct {
 	tag   string
 }
 
-func create_coodb(index int, txTag string) {
+func create_coodb(txIndex int, txTag string) {
+	log.Println("create_coodb開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
 
@@ -43,9 +44,9 @@ func create_coodb(index int, txTag string) {
 		// エラーが発生した場合、以降の処理を実行しない
 		log.Fatalln(err)
 	}
-
+	log.Println("動いてる4")
 	cmd = "INSERT INTO coomile (index, tag) VALUES (?, ?)"
-	_, err = DbConnection.Exec(cmd, index, txTag)
+	_, err = DbConnection.Exec(cmd, txIndex, txTag)
 
 	if err != nil {
 		// golang には、try-catch がない。nil か否かで判定
@@ -54,8 +55,9 @@ func create_coodb(index int, txTag string) {
 
 	/*ここから挿入したデータの一覧を出力する処理*/
 	// マルチプルセレクト(今度は、_ ではなく、rows)
+	log.Println("動いてる5")
 	cmd = "SELECT * FROM coomile where index = ?"
-	row := DbConnection.QueryRow(cmd, index)
+	row := DbConnection.QueryRow(cmd, txIndex)
 
 	// データ保存領域を確保
 	var b Coomile

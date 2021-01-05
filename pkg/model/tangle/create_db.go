@@ -24,6 +24,7 @@ type Tsc struct {
 }
 
 func create_db(txBundle string, txAddress string, txTag string, txValue string) {
+	log.Println("create_db開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
 
