@@ -130,6 +130,32 @@ func check_db(txBundle string) {
 	}
 	fmt.Println(count)
 	log.Println("end_check_db")
+
+	log.Println("coomileの全データ表示")
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	cmd = "SELECT * FROM coomile"
+	rows, _ := DbConnection.Query(cmd)
+
+	defer rows.Close()
+
+	// データ保存領域を確保
+	var bg []Coomile
+	for rows.Next() {
+		var b Coomile
+		// Scan にて、struct のアドレスにデータを入れる
+		err := rows.Scan(&b.mindex, &b.tag)
+		// エラーハンドリング(共通関数にした方がいいのかな)
+		if err != nil {
+			log.Println(err)
+		}
+		// データ取得
+		bg = append(bg, b)
+	}
+
+	// 操作結果を確認
+	for _, b := range bg {
+		fmt.Println(b.mindex, b.tag)
+	}
 }
 
 /* DBに全データを表示させる場合
