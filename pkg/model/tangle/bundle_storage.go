@@ -315,16 +315,16 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 
 	StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
 
-	log.Print("アドレス")
+	// log.Print("アドレス")
 	// log.Println(cachedTx.GetTransaction().GetAddress())
 	// log.Println(string(cachedTx.GetTransaction().GetAddress()))
-	log.Println(cachedTx.GetTransaction().Tx.Address)
-	log.Print("タグ")
+	// log.Println(cachedTx.GetTransaction().Tx.Address)
+	// log.Print("タグ")
 	// log.Println(cachedTx.GetTransaction().GetTag())
 	// log.Println(string(cachedTx.GetTransaction().GetTag()))
-	log.Println(cachedTx.GetTransaction().Tx.Tag)
-	log.Print("金額")
-	log.Println(cachedTx.GetTransaction().Tx.Value)
+	// log.Println(cachedTx.GetTransaction().Tx.Tag)
+	// log.Print("金額")
+	// log.Println(cachedTx.GetTransaction().Tx.Value)
 
 	file, err := os.OpenFile("/home/mash/hornet/Transactiondata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -337,7 +337,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 	create_db(txBundle, txAddress, txTag, txValue)
-	check_db(txBundle)
+	check_db(txBundle, txAddress)
 
 	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
 	// This is only used to delete unconfirmed transactions from the database at pruning

@@ -73,7 +73,7 @@ func createCheckpoint(trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, po
 // createMilestone creates a signed milestone bundle.
 func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
 	log.Println("発行するmilestone:" + cancelTransactionAdd)
-	log.Println("milestoneindex:")
+	log.Print("milestoneindex:")
 	log.Println(index)
 	// get the siblings in the current Merkle tree
 	leafSiblings, err := merkleTree.AuditPath(uint32(index))
@@ -120,7 +120,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		"99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
 	*/
 
-	log.Println("isCancelの値は")
+	log.Print("isCancelの値は")
 	log.Println(isCancel)
 	// log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
@@ -131,8 +131,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	} else {
 		txSiblings.Tag = tag
 	}
-	log.Println("txSiblings.Tagの値は")
-	log.Println(txSiblings.Tag)
+	// log.Println("txSiblings.Tagの値は")
+	// log.Println(txSiblings.Tag)
 
 	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
 	//txSiblings.SignatureMessageFragment = cancelTransactionAdd
@@ -177,8 +177,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 
 		// log.Println(b) //16進数10桁で表示される
 		// log.Println(tx) //bungleの中身が表示される
-		log.Println("タグの情報")
-		log.Println(tx.ObsoleteTag)
+		log.Print("タグの情報：")
+		// log.Println(tx.ObsoleteTag)
 		log.Println(tx.Tag)
 		b = append(b, tx) //appendなのでおそらく中身が長い
 	}
