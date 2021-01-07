@@ -127,16 +127,23 @@ func check_db(txBundle string, txAddress string) {
 		log.Println("normal transaction")
 	} else {
 		log.Println("iscanselled transaction")
+
+		// Open(driver,  sql 名(任意の名前))
+		DbConnection2, _ := sql.Open("sqlite3", dbPath)
+
+		// Connection をクローズする。(defer で閉じるのが Golang の作法)
+		defer DbConnection2.Close()
+
 		// 今のaddressを引数に持ってきて問い合わせを行い、valueを読みだす
-		cmd = "SELECT * FROM tsc where bundle = ?"
+		cmd2 := "SELECT * FROM tsc where bundle = ?"
 		// row = DbConnection.QueryRow(cmd, txAddress)
-		row = DbConnection.QueryRow(cmd, checkBundle)
+		row2 := DbConnection2.QueryRow(cmd2, checkBundle)
 
 		// データ保存領域を確保
 		var b Tsc
 		// Scan にて、struct のアドレスにデータを入れる
 		log.Println("取り消された取引がDB内に存在するか確認中……")
-		err = row.Scan(&b.address, &b.value)
+		err = row2.Scan(&b.address, &b.value)
 		// エラーハンドリング(共通関数にした方がいいのかな)
 		if err != nil {
 			// シングルセレクトの場合は、エラーハンドリングが異なる
