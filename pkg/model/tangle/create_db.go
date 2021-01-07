@@ -137,7 +137,7 @@ func check_db(txBundle string, txAddress string) {
 		// 今のaddressを引数に持ってきて問い合わせを行い、valueを読みだす
 		cmd2 := "SELECT * FROM tsc where bundle = ?"
 		// row = DbConnection.QueryRow(cmd, txAddress)
-		row2 := DbConnection2.QueryRow(cmd2, checkBundle)
+		row2 := DbConnection2.QueryRow(cmd2, sumplebundle)
 
 		// データ保存領域を確保
 		var b Tsc
@@ -157,35 +157,35 @@ func check_db(txBundle string, txAddress string) {
 	}
 	fmt.Println(count)
 	log.Println("end_check_db")
-
-	/*
-		log.Println("coomileの全データ表示")
-		// マルチプルセレクト(今度は、_ ではなく、rows)
-		cmd = "SELECT * FROM coomile"
-		rows, _ := DbConnection.Query(cmd)
-
-		defer rows.Close()
-
-		// データ保存領域を確保
-		var bg []Coomile
-		for rows.Next() {
-			var b Coomile
-			// Scan にて、struct のアドレスにデータを入れる
-			err := rows.Scan(&b.mindex, &b.tag)
-			// エラーハンドリング(共通関数にした方がいいのかな)
-			if err != nil {
-				log.Println(err)
-			}
-			// データ取得
-			bg = append(bg, b)
-		}
-
-		// 操作結果を確認
-		for _, b := range bg {
-			fmt.Println(b.mindex, b.tag)
-		}
-	*/
 }
+
+/*
+	log.Println("coomileの全データ表示")
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	cmd = "SELECT * FROM coomile"
+	rows, _ := DbConnection.Query(cmd)
+
+	defer rows.Close()
+
+	// データ保存領域を確保
+	var bg []Coomile
+	for rows.Next() {
+		var b Coomile
+		// Scan にて、struct のアドレスにデータを入れる
+		err := rows.Scan(&b.mindex, &b.tag)
+		// エラーハンドリング(共通関数にした方がいいのかな)
+		if err != nil {
+			log.Println(err)
+		}
+		// データ取得
+		bg = append(bg, b)
+	}
+
+	// 操作結果を確認
+	for _, b := range bg {
+		fmt.Println(b.mindex, b.tag)
+	}
+*/
 
 /* DBに全データを表示させる場合
 func create_db(txBundle string, txAddress string, txTag string, txValue string) {
