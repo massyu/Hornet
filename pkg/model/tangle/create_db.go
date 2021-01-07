@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -162,31 +163,39 @@ func check_db(txBundle string, txAddress string) {
 		}
 
 		// 操作結果を確認
+		var cngValue int
+		cngValue = 0
 		for _, b := range bg {
-			fmt.Println(b.address, b.value)
-		}
-
-		/*
-			// データ保存領域を確保
-			var b Tsc
-			// Scan にて、struct のアドレスにデータを入れる
-			log.Println("取り消された取引がDB内に存在するか確認中……")
-			err = row2.Scan(&b.bundle, &b.address, &b.tag, &b.value)
-			// エラーハンドリング(共通関数にした方がいいのかな)
-			if err != nil {
-				// シングルセレクトの場合は、エラーハンドリングが異なる
-				if err == sql.ErrNoRows {
-					log.Println("There is no row!!!")
-				} else {
-					log.Println(err)
-				}
+			if b.address == txAddress {
+				fmt.Println("cngValueに" + strconv.FormatInt(b.value, 10) + "を加算")
+				cngValue += b.value
+				fmt.Println(cngValue)
 			}
 			fmt.Println(b.address, b.value)
-		*/
+		}
 	}
 	fmt.Println(count)
 	log.Println("end_check_db")
+	return cngValue
 }
+
+/*
+	// データ保存領域を確保
+	var b Tsc
+	// Scan にて、struct のアドレスにデータを入れる
+	log.Println("取り消された取引がDB内に存在するか確認中……")
+	err = row.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+	// エラーハンドリング(共通関数にした方がいいのかな)
+	if err != nil {
+		// シングルセレクトの場合は、エラーハンドリングが異なる
+		if err == sql.ErrNoRows {
+			log.Println("There is no row!!!")
+		} else {
+			log.Println(err)
+		}
+	}
+	fmt.Println(b.address, b.value)
+*/
 
 /*
 	log.Println("coomileの全データ表示")
