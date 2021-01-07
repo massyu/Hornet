@@ -97,7 +97,7 @@ func check_db(txBundle string, txAddress string) {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumplebundle := "XEDGCCJAZWG9VEASUVFLUUSPUX9DYITKWWAIPFHYGGZYLTTFPSQEENEZ9SE9ORH9YADGWCFBIBUTPXLKW"
+	sumplebundle := "AVKJVWUQSCBCBGED9FIA9OBZCFCOL9CFTNUWDTLLVIDZUVXQGAKYVFSATZGEUNRDWD9DEHFAAX9ZTBKWX"
 
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	// checkBundle := txBundle[0:27]
