@@ -137,23 +137,46 @@ func check_db(txBundle string, txAddress string) {
 		// 今のaddressを引数に持ってきて問い合わせを行い、valueを読みだす
 		cmd2 := "SELECT * FROM tsc where bundle = ?"
 		// row = DbConnection.QueryRow(cmd, txAddress)
-		row2 := DbConnection2.QueryRow(cmd2, sumplebundle)
+		rows, _ := DbConnection2.Query(cmd2, sumplebundle)
+
+		defer rows.Close()
 
 		// データ保存領域を確保
-		var b Tsc
-		// Scan にて、struct のアドレスにデータを入れる
-		log.Println("取り消された取引がDB内に存在するか確認中……")
-		err = row2.Scan(&b.bundle, &b.address, &b.tag, &b.value)
-		// エラーハンドリング(共通関数にした方がいいのかな)
-		if err != nil {
-			// シングルセレクトの場合は、エラーハンドリングが異なる
-			if err == sql.ErrNoRows {
-				log.Println("There is no row!!!")
-			} else {
+		var bg []Tsc
+		for rows.Next() {
+			var b Tsc
+			// Scan にて、struct のアドレスにデータを入れる
+			err := rows.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+			// エラーハンドリング(共通関数にした方がいいのかな)
+			if err != nil {
 				log.Println(err)
 			}
+			// データ取得
+			bg = append(bg, b)
 		}
-		fmt.Println(b.address, b.value)
+
+		// 操作結果を確認
+		for _, b := range bg {
+			fmt.Println(b.address, b.value)
+		}
+
+		/*
+			// データ保存領域を確保
+			var b Tsc
+			// Scan にて、struct のアドレスにデータを入れる
+			log.Println("取り消された取引がDB内に存在するか確認中……")
+			err = row2.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+			// エラーハンドリング(共通関数にした方がいいのかな)
+			if err != nil {
+				// シングルセレクトの場合は、エラーハンドリングが異なる
+				if err == sql.ErrNoRows {
+					log.Println("There is no row!!!")
+				} else {
+					log.Println(err)
+				}
+			}
+			fmt.Println(b.address, b.value)
+		*/
 	}
 	fmt.Println(count)
 	log.Println("end_check_db")
