@@ -143,7 +143,13 @@ func check_db(txBundle string, txAddress string) {
 
 		// データ保存領域を確保
 		var bg []Tsc
+		var nextCount int
+		nextCount = 0
 		for rows.Next() {
+			nextCount++
+			log.Println(nextCount)
+			log.Println("回目")
+
 			var b Tsc
 			// Scan にて、struct のアドレスにデータを入れる
 			err := rows.Scan(&b.bundle, &b.address, &b.tag, &b.value)
