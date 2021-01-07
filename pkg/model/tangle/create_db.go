@@ -143,7 +143,7 @@ func check_db(txBundle string, txAddress string) {
 		var b Tsc
 		// Scan にて、struct のアドレスにデータを入れる
 		log.Println("取り消された取引がDB内に存在するか確認中……")
-		err = row2.Scan(&b.address, &b.value)
+		err = row2.Scan(&b.bundle, &b.address, &b.tag, &b.value)
 		// エラーハンドリング(共通関数にした方がいいのかな)
 		if err != nil {
 			// シングルセレクトの場合は、エラーハンドリングが異なる
