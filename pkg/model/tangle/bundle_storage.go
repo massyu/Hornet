@@ -337,7 +337,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 	create_db(txBundle, txAddress, txTag, txValue)
-	cngValue := check_db(txBundle, txAddress)
+	cngValue := checkDB(txBundle, txAddress)
 	log.Println(cngValue)
 	log.Println("が返ってきた")
 

@@ -89,7 +89,7 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 	log.Println("create_db")
 }
 
-func check_db(txBundle string, txAddress string) {
+func checkDB(txBundle string, txAddress string) int {
 	log.Println("check_db開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
@@ -123,6 +123,9 @@ func check_db(txBundle string, txAddress string) {
 			log.Println(err)
 		}
 	}
+
+	var cngValue int
+	cngValue = 0
 
 	if count == 0 {
 		log.Println("normal transaction")
@@ -163,11 +166,9 @@ func check_db(txBundle string, txAddress string) {
 		}
 
 		// 操作結果を確認
-		var cngValue int
-		cngValue = 0
 		for _, b := range bg {
 			if b.address == txAddress {
-				fmt.Println("cngValueに" + strconv.FormatInt(b.value, 10) + "を加算")
+				fmt.Println("cngValueに" + strconv.Itoa(b.value) + "を加算")
 				cngValue += b.value
 				fmt.Println(cngValue)
 			}
