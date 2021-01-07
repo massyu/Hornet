@@ -129,7 +129,8 @@ func check_db(txBundle string, txAddress string) {
 		log.Println("iscanselled transaction")
 		// 今のaddressを引数に持ってきて問い合わせを行い、valueを読みだす
 		cmd = "SELECT * FROM tsc where address = ?"
-		row = DbConnection.QueryRow(cmd, txAddress)
+		// row = DbConnection.QueryRow(cmd, txAddress)
+		row = DbConnection.QueryRow(cmd, checkBundle)
 
 		// データ保存領域を確保
 		var b Tsc
