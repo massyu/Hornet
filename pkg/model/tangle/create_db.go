@@ -20,6 +20,7 @@ var DbConnection *sql.DB
 // データ格納用
 type Tsc struct {
 	bundle  string
+	thash   string
 	address string
 	tag     string
 	value   int
@@ -31,7 +32,7 @@ type Coomile struct {
 	tag    string
 }
 
-func create_db(txBundle string, txAddress string, txTag string, txValue string) {
+func create_db(txBundle string, txHash string, txAddress string, txTag string, txValue string) {
 	log.Println("create_db開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", dbPath)
@@ -41,7 +42,8 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 
 	// blog テーブルの作成
 	cmd := `CREATE TABLE IF NOT EXISTS tsc(
-             bundle STRING,    
+			 bundle STRING,    
+			 thash STRING,    
              address STRING,    
              tag STRING,    
              value INT)`
@@ -57,8 +59,8 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 		log.Fatalln(err)
 	}
 
-	cmd = "INSERT INTO tsc (bundle, address, tag, value) VALUES (?, ?, ?, ?)"
-	_, err = DbConnection.Exec(cmd, txBundle, txAddress, txTag, txValue)
+	cmd = "INSERT INTO tsc (bundle, thash, address, tag, value) VALUES (?, ?, ?, ?, ?)"
+	_, err = DbConnection.Exec(cmd, txBundle, txHash, txAddress, txTag, txValue)
 
 	if err != nil {
 		// golang には、try-catch がない。nil か否かで判定
@@ -73,7 +75,7 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 	// データ保存領域を確保
 	var b Tsc
 	// Scan にて、struct のアドレスにデータを入れる
-	err = row.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+	err = row.Scan(&b.bundle, &b.thash, &b.address, &b.tag, &b.value)
 	// エラーハンドリング(共通関数にした方がいいのかな)
 	if err != nil {
 		// シングルセレクトの場合は、エラーハンドリングが異なる
@@ -84,7 +86,7 @@ func create_db(txBundle string, txAddress string, txTag string, txValue string) 
 		}
 	}
 
-	fmt.Println(b.bundle, b.address, b.tag, b.value)
+	fmt.Println(b.bundle, b.thash, b.address, b.tag, b.value)
 
 	log.Println("create_db")
 }
@@ -156,7 +158,98 @@ func checkDB(txBundle string, txAddress string) int {
 
 			var b Tsc
 			// Scan にて、struct のアドレスにデータを入れる
-			err := rows.Scan(&b.bundle, &b.address, &b.tag, &b.value)
+			err := rows.Scan(&b.bundle, &b.thash, &b.address, &b.tag, &b.value)
+			// エラーハンドリング(共通関数にした方がいいのかな)
+			if err != nil {
+				log.Println(err)
+			}
+			// データ取得
+			bg = append(bg, b)
+		}
+
+		// valueの加算処理
+		for _, b := range bg {
+			if b.address == txAddress {
+				fmt.Println("cngValueに" + strconv.Itoa(b.value) + "を加算")
+				cngValue += b.value
+				fmt.Println(cngValue)
+			}
+			fmt.Println(b.address, b.value)
+		}
+	}
+	fmt.Println(count)
+	log.Println("end_check_db")
+	return cngValue
+}
+
+func checkDB2(txAddress string) int {
+	log.Println("check_db開始")
+	// Open(driver,  sql 名(任意の名前))
+	DbConnection, _ := sql.Open("sqlite3", coodbPath)
+
+	// Connection をクローズする。(defer で閉じるのが Golang の作法)
+	defer DbConnection.Close()
+
+	// 出力確認テスト
+	sumplebundle := "AVKJVWUQSCBCBGED9FIA9OBZCFCOL9CFTNUWDTLLVIDZUVXQGAKYVFSATZGEUNRDWD9DEHFAAX9ZTBKWX"
+
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	// checkBundle := txBundle[0:27]
+	checkBundle := sumplebundle[0:27]
+
+	log.Println("checkBundle is " + checkBundle)
+	cmd := "SELECT COUNT(*) FROM coomile where tag = ?"
+	row := DbConnection.QueryRow(cmd, checkBundle)
+
+	// データ保存領域を確保
+	// var b Coomile
+	// Scan にて、struct のアドレスにデータを入れる
+	var count int
+	log.Println("取り消された取引がDB内に存在するか確認中……")
+	err := row.Scan(&count)
+	// エラーハンドリング(共通関数にした方がいいのかな)
+	if err != nil {
+		// シングルセレクトの場合は、エラーハンドリングが異なる
+		if err == sql.ErrNoRows {
+			log.Println("There is no row!!!")
+		} else {
+			log.Println(err)
+		}
+	}
+
+	var cngValue int
+	cngValue = 0
+
+	if count == 0 {
+		log.Println("normal transaction")
+	} else {
+		log.Println("iscanselled transaction")
+
+		// Open(driver,  sql 名(任意の名前))
+		DbConnection2, _ := sql.Open("sqlite3", dbPath)
+
+		// Connection をクローズする。(defer で閉じるのが Golang の作法)
+		defer DbConnection2.Close()
+
+		// 今のaddressを引数に持ってきて問い合わせを行い、valueを読みだす
+		cmd2 := "SELECT * FROM tsc where bundle = ?"
+		// row = DbConnection.QueryRow(cmd, txAddress)
+		rows, _ := DbConnection2.Query(cmd2, sumplebundle)
+
+		defer rows.Close()
+
+		// データ保存領域を確保
+		var bg []Tsc
+		var nextCount int
+		nextCount = 0
+		for rows.Next() {
+			nextCount++
+			log.Println(nextCount)
+			log.Println("回目")
+
+			var b Tsc
+			// Scan にて、struct のアドレスにデータを入れる
+			err := rows.Scan(&b.bundle, &b.thash, &b.address, &b.tag, &b.value)
 			// エラーハンドリング(共通関数にした方がいいのかな)
 			if err != nil {
 				log.Println(err)

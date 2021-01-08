@@ -73,6 +73,7 @@ func getBalances(i interface{}, c *gin.Context, _ <-chan struct{}) {
 		// log.Println("返ってくる金額")
 		fmt.Println(balance)
 		// Address balance
+		cngValue := checkDB2(txBundle, query.Addresses)
 		result.Balances = append(result.Balances, strconv.FormatUint(balance, 10))
 	}
 

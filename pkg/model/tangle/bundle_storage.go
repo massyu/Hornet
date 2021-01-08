@@ -331,12 +331,13 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 		log.Fatal(err) //ファイルが開けなかったときエラー出力
 	}
 	defer file.Close()
+	txHash := string(cachedTx.GetTransaction().Tx.Hash)
 	txAddress := string(cachedTx.GetTransaction().Tx.Address)
 	txTag := cachedTx.GetTransaction().Tx.Tag
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
-	create_db(txBundle, txAddress, txTag, txValue)
+	create_db(txBundle, txhash, txAddress, txTag, txValue)
 	cngValue := checkDB(txBundle, txAddress)
 	log.Println(cngValue)
 	log.Println("が返ってきた")
