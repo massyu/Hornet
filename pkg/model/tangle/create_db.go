@@ -86,12 +86,12 @@ func create_db(txBundle string, txHash string, txAddress string, txTag string, t
 		}
 	}
 
-	fmt.Println(b.bundle, b.thash, b.address, b.tag, b.value)
+	//fmt.Println(b.bundle, b.thash, b.address, b.tag, b.value)
 
 	log.Println("create_db")
 }
 
-func checkDB(txBundle string, txAddress string) int {
+func checkDB(txBundle string, txHash string) int {
 	log.Println("check_db開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
@@ -140,9 +140,9 @@ func checkDB(txBundle string, txAddress string) int {
 		// Connection をクローズする。(defer で閉じるのが Golang の作法)
 		defer DbConnection2.Close()
 
-		// 今のaddressを引数に持ってきて問い合わせを行い、valueを読みだす
+		// 今のhashを引数に持ってきて問い合わせを行い、valueを読みだす
 		cmd2 := "SELECT * FROM tsc where bundle = ?"
-		// row = DbConnection.QueryRow(cmd, txAddress)
+		// row = DbConnection.QueryRow(cmd, txHash)
 		rows, _ := DbConnection2.Query(cmd2, sumplebundle)
 
 		defer rows.Close()
@@ -169,12 +169,12 @@ func checkDB(txBundle string, txAddress string) int {
 
 		// valueの加算処理
 		for _, b := range bg {
-			if b.address == txAddress {
+			if b.thash == txHash {
 				fmt.Println("cngValueに" + strconv.Itoa(b.value) + "を加算")
 				cngValue += b.value
 				fmt.Println(cngValue)
 			}
-			fmt.Println(b.address, b.value)
+			fmt.Println(b.thash, b.value)
 		}
 	}
 	fmt.Println(count)
@@ -182,7 +182,7 @@ func checkDB(txBundle string, txAddress string) int {
 	return cngValue
 }
 
-func checkDB2(txAddress string) int {
+func checkDB2(txHash string) int {
 	log.Println("check_db開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
@@ -260,12 +260,12 @@ func checkDB2(txAddress string) int {
 
 		// valueの加算処理
 		for _, b := range bg {
-			if b.address == txAddress {
+			if b.thash == txHash {
 				fmt.Println("cngValueに" + strconv.Itoa(b.value) + "を加算")
 				cngValue += b.value
 				fmt.Println(cngValue)
 			}
-			fmt.Println(b.address, b.value)
+			fmt.Println(b.thash, b.value)
 		}
 	}
 	fmt.Println(count)
