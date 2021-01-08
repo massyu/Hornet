@@ -70,7 +70,8 @@ func getBalances(i interface{}, c *gin.Context, _ <-chan struct{}) {
 			c.JSON(http.StatusInternalServerError, e)
 			return
 		}
-
+		log.Println("返ってくる金額")
+		log.Println(balance)
 		// Address balance
 		result.Balances = append(result.Balances, strconv.FormatUint(balance, 10))
 	}

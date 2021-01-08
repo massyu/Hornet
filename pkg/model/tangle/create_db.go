@@ -165,7 +165,7 @@ func checkDB(txBundle string, txAddress string) int {
 			bg = append(bg, b)
 		}
 
-		// 操作結果を確認
+		// valueの加算処理
 		for _, b := range bg {
 			if b.address == txAddress {
 				fmt.Println("cngValueに" + strconv.Itoa(b.value) + "を加算")
