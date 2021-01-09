@@ -100,7 +100,7 @@ func checkDB(txBundle string, txHash string) int {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumplebundle := "AVKJVWUQSCBCBGED9FIA9OBZCFCOL9CFTNUWDTLLVIDZUVXQGAKYVFSATZGEUNRDWD9DEHFAAX9ZTBKWX"
+	sumplebundle := "YKBOJAUHGA9FQWYXBHRDQPAGNYGO9LIFAINJECFUEBUZTO9JHUEJWFMJYFFEGKUHYWDOOIYAGUKZLBHSA"
 
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	// checkBundle := txBundle[0:27]
@@ -206,7 +206,7 @@ func checkDB2(txHash string) int {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumplebundle := "AVKJVWUQSCBCBGED9FIA9OBZCFCOL9CFTNUWDTLLVIDZUVXQGAKYVFSATZGEUNRDWD9DEHFAAX9ZTBKWX"
+	sumplebundle := "YKBOJAUHGA9FQWYXBHRDQPAGNYGO9LIFAINJECFUEBUZTO9JHUEJWFMJYFFEGKUHYWDOOIYAGUKZLBHSA"
 
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	// checkBundle := txBundle[0:27]
