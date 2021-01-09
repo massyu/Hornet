@@ -114,7 +114,7 @@ func createCoodb(txIndex int, txTag string, txBundle string) {
 			// golang には、try-catch がない。nil か否かで判定
 			log.Fatalln(err)
 		}
-		fmt.Println(b.mindex, b.thash, b.address, b.bundle, b.value)
+		fmt.Println(txIndex, b.thash, b.address, b.bundle, b.value)
 	}
 	log.Println("bundleに一致するTransaction一覧")
 
