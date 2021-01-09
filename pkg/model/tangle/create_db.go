@@ -107,7 +107,7 @@ func checkDB(txBundle string, txHash string) int {
 	checkBundle := sumplebundle[0:27]
 
 	log.Println("checkBundle is " + checkBundle)
-	cmd := "SELECT COUNT(*) FROM coomile where tag = ?"
+	cmd := "SELECT COUNT(*) FROM coomile where thash = ?"
 	row := DbConnection.QueryRow(cmd, checkBundle)
 
 	// データ保存領域を確保
@@ -141,9 +141,24 @@ func checkDB(txBundle string, txHash string) int {
 		defer DbConnection2.Close()
 
 		// 今のhashを引数に持ってきて問い合わせを行い、valueを読みだす
-		cmd2 := "SELECT * FROM tsc where bundle = ?"
+		cmd2 := "SELECT * FROM tsc where thash = ?"
 		// row = DbConnection.QueryRow(cmd, txHash)
 		rows, _ := DbConnection2.Query(cmd2, sumplebundle)
+
+		// データ保存領域を確保
+		// var b Coomile
+		// Scan にて、struct のアドレスにデータを入れる
+		log.Println("取り消された取引がDB内に存在するか確認中……")
+		err := row.Scan(&count)
+		// エラーハンドリング(共通関数にした方がいいのかな)
+		if err != nil {
+			// シングルセレクトの場合は、エラーハンドリングが異なる
+			if err == sql.ErrNoRows {
+				log.Println("There is no row!!!")
+			} else {
+				log.Println(err)
+			}
+		}
 
 		defer rows.Close()
 

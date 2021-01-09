@@ -71,8 +71,8 @@ func createCheckpoint(trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, po
 }
 
 // createMilestone creates a signed milestone bundle.
-func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
-	log.Println("発行するmilestone:" + cancelTransactionAdd)
+func createMilestone(isCancel bool, cancelTransactionBnd string, seed trinary.Hash, index milestone.Index, securityLvl consts.SecurityLevel, trunkHash hornet.Hash, branchHash hornet.Hash, mwm int, merkleTree *merkle.MerkleTree, whiteFlagMerkleRootTreeHash []byte, powHandler *pow.Handler) (Bundle, error) {
+	log.Println("発行するmilestone:" + cancelTransactionBnd)
 	log.Print("milestoneindex:")
 	log.Println(index)
 	// get the siblings in the current Merkle tree
@@ -92,8 +92,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// a milestone consists of two transactions.
 	// the last transaction (currentIndex == lastIndex) contains the siblings for the Merkle tree.
 	txSiblings := &transaction.Transaction{}
-	//cancelTransactionAdd = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
-	/*cancelTransactionAdd =
+	//cancelTransactionBnd = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+	/*cancelTransactionBnd =
 	"LPWPYKPQQKVAHHJRSICVIANHRVITMYKVXHHDCBVQQNYP9O9IGPNBGBYPYKDAOTGPMESHYGHYRLQMH9XZ9" +
 		"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
 		"9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" +
@@ -124,10 +124,10 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	log.Println(isCancel)
 	// log.Println("signatuireの値" + paddedSiblingsTrytes)
 	if isCancel {
-		// log.Println(cancelTransactionAdd[0:25] + "  ")
-		// txSiblings.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
-		txSiblings.Tag = cancelTransactionAdd[0:27] //Tagの定義文字数だけ切り出し
-		// log.Println(cancelTransactionAdd + "SignatureMessageFragment is issued as address")
+		// log.Println(cancelTransactionBnd[0:25] + "  ")
+		// txSiblings.Tag = cancelTransactionBnd[0:25] + "**" //Tagの定義文字数だけ切り出し
+		txSiblings.Tag = cancelTransactionBnd[0:27] //Tagの定義文字数だけ切り出し
+		// log.Println(cancelTransactionBnd + "SignatureMessageFragment is issued as address")
 	} else {
 		txSiblings.Tag = tag
 	}
@@ -135,7 +135,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	// log.Println(txSiblings.Tag)
 
 	txSiblings.SignatureMessageFragment = paddedSiblingsTrytes
-	//txSiblings.SignatureMessageFragment = cancelTransactionAdd
+	//txSiblings.SignatureMessageFragment = cancelTransactionBnd
 	txSiblings.Address = merkleTree.Root
 	txSiblings.CurrentIndex = uint64(securityLvl)
 	txSiblings.LastIndex = uint64(securityLvl)
@@ -145,7 +145,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 	txSiblings.Bundle = consts.NullHashTrytes
 	txSiblings.TrunkTransaction = trunkHash.Trytes()
 	txSiblings.BranchTransaction = branchHash.Trytes()
-	//txSiblings.Tag = cancelTransactionAdd
+	//txSiblings.Tag = cancelTransactionBnd
 	txSiblings.Nonce = consts.NullTagTrytes
 
 	// the other transactions contain a signature that signs the siblings and thereby ensures the integrity.
@@ -168,8 +168,8 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		tx.TrunkTransaction = consts.NullHashTrytes
 		tx.BranchTransaction = trunkHash.Trytes()
 		if isCancel {
-			// tx.Tag = cancelTransactionAdd[0:25] + "**" //Tagの定義文字数だけ切り出し
-			tx.Tag = cancelTransactionAdd[0:27] //Tagの定義文字数だけ切り出し
+			// tx.Tag = cancelTransactionBnd[0:25] + "**" //Tagの定義文字数だけ切り出し
+			tx.Tag = cancelTransactionBnd[0:27] //Tagの定義文字数だけ切り出し
 		} else {
 			tx.Tag = tag
 		}
@@ -204,7 +204,7 @@ func createMilestone(isCancel bool, cancelTransactionAdd string, seed trinary.Ha
 		convertedString := strconv.FormatUint(uint64(index), 10)
 		convertedInt, _ := strconv.Atoi(convertedString)
 		// fmt.Println(reflect.TypeOf(convertedInt))
-		create_coodb(convertedInt, txSiblings.Tag) //Tagだけ使う
+		createCoodb(convertedInt, txSiblings.Tag, cancelTransactionBnd) //Tagだけ使う
 	}
 	/*******************************************************/
 
