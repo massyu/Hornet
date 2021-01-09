@@ -25,6 +25,15 @@ type Coomile struct {
 	value   int
 }
 
+// データ格納用
+type Tsc struct {
+	bundle  string
+	thash   string
+	address string
+	tag     string
+	value   int
+}
+
 func createCoodb(txIndex int, txTag string, txBundle string) {
 	log.Println("create_coodb開始")
 	// Open(driver,  sql 名(任意の名前))
