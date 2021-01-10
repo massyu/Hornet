@@ -332,6 +332,8 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	log.Println("が返ってきた")
 
 	if isCancel == false {
+		log.Println("Transaction処理を行わない")
+
 		// Store the tx in the bundleTransactionsStorage
 		StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
 
@@ -344,18 +346,17 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 		StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
 
 		StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
+	}
+	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
+	// This is only used to delete unconfirmed transactions from the database at pruning
+	if !requested {
+		StoreUnconfirmedTx(latestMilestoneIndex, cachedTx.GetTransaction().GetTxHash()).Release(true)
+	}
 
-		// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
-		// This is only used to delete unconfirmed transactions from the database at pruning
-		if !requested {
-			StoreUnconfirmedTx(latestMilestoneIndex, cachedTx.GetTransaction().GetTxHash()).Release(true)
-		}
-
-		// If the transaction is part of a milestone, the bundle must be created here
-		// Otherwise, bundles are created if tailTx becomes solid
-		if IsMaybeMilestoneTx(cachedTx.Retain()) { // tx pass +1
-			tryConstructBundle(cachedTx.Retain(), false)
-		}
+	// If the transaction is part of a milestone, the bundle must be created here
+	// Otherwise, bundles are created if tailTx becomes solid
+	if IsMaybeMilestoneTx(cachedTx.Retain()) { // tx pass +1
+		tryConstructBundle(cachedTx.Retain(), false)
 	}
 
 	return cachedTx, false
