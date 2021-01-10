@@ -335,13 +335,6 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 			start := time.Now()
 			for x := range time.Tick(1 * time.Second) {
 				secondsSinceStart := x.Sub(start).Seconds()
-
-				if secondsSinceStart <= waitToKillTimeInSeconds {
-					processList := ""
-					runningBackgroundWorkers := daemon.GetRunningBackgroundWorkers()
-				} else {
-					log.Fatal("Background processes did not terminate in time! Forcing shutdown ...")
-				}
 			}
 		}()
 
