@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/massyu/hive.go/bitmask"
@@ -337,7 +338,11 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 				secondsSinceStart := x.Sub(start).Seconds()
 
 				if secondsSinceStart <= waitToKillTimeInSeconds {
+					processList := ""
 					runningBackgroundWorkers := daemon.GetRunningBackgroundWorkers()
+					if len(runningBackgroundWorkers) >= 1 {
+						processList = "(" + strings.Join(runningBackgroundWorkers, ", ") + ") "
+					}
 					log.Fatal("Received shutdown request - waiting (max %d seconds) to finish processing %s...", waitToKillTimeInSeconds-int(secondsSinceStart), processList)
 
 				} else {
