@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/massyu/hive.go/bitmask"
+	"github.com/massyu/hive.go/daemon"
 	"github.com/massyu/hive.go/kvstore"
 	"github.com/massyu/hive.go/objectstorage"
 
@@ -329,8 +330,8 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
 	isCancel, err2 := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	if err2 != nil {
-		log.Println("エラー")
 		fmt.Println("err", err2)
+		daemon.ShutdownAndWait()
 	}
 	log.Println(isCancel)
 	log.Println("が返ってきた")
