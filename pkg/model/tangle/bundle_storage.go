@@ -323,7 +323,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txTag := cachedTx.GetTransaction().Tx.Tag
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
-	log.Println("createDBへの引数")
+	log.Println("createDB呼び出し")
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
 	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	log.Println(isCancel)

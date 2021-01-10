@@ -47,9 +47,9 @@ func createCoodb(txIndex int, txTag string, txBundle string) {
 	// blog テーブルの作成
 	cmd := `CREATE TABLE IF NOT EXISTS coomile(
 			mindex INT,    
-			thash STRING    
-			address STRING    
-			bundle STRING    
+			thash STRING,    
+			address STRING,    
+			bundle STRING,    
 			value INT)`
 
 	// cmd を実行
