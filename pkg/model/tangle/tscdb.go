@@ -150,6 +150,7 @@ func checkHashForCooDB(txHash string) bool {
 		log.Println("checkHashForCooDB終了")
 
 	}
+	return false
 }
 
 func checkDBForBalances(txHash string) int {
