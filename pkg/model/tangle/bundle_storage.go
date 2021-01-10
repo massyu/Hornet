@@ -5,12 +5,11 @@ import (
 	"encoding/binary"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/massyu/hive.go/bitmask"
-	"github.com/massyu/hive.go/daemon"
 	"github.com/massyu/hive.go/kvstore"
 	"github.com/massyu/hive.go/objectstorage"
 
@@ -331,27 +330,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
 	isCancel, err2 := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	if err2 != nil {
-		const waitToKillTimeInSeconds = 300
-		go func() {
-			start := time.Now()
-			for x := range time.Tick(1 * time.Second) {
-				secondsSinceStart := x.Sub(start).Seconds()
-
-				if secondsSinceStart <= waitToKillTimeInSeconds {
-					processList := ""
-					runningBackgroundWorkers := daemon.GetRunningBackgroundWorkers()
-					if len(runningBackgroundWorkers) >= 1 {
-						processList = "(" + strings.Join(runningBackgroundWorkers, ", ") + ") "
-					}
-					log.Fatal("Received shutdown request - waiting (max %d seconds) to finish processing %s...", waitToKillTimeInSeconds-int(secondsSinceStart), processList)
-
-				} else {
-					log.Fatal("Background processes did not terminate in time! Forcing shutdown ...")
-				}
-			}
-		}()
-
-		daemon.ShutdownAndWait()
+		os.Exit
 		fmt.Println("err", err2)
 	}
 	log.Println(isCancel)
