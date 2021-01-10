@@ -5,7 +5,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"time"
 
@@ -301,20 +300,6 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	if !isNew && !reapply {
 		return cachedTx, true
 	}
-
-	// Store the tx in the bundleTransactionsStorage
-	StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
-
-	StoreApprover(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
-	if !bytes.Equal(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetBranchHash()) {
-		StoreApprover(cachedTx.GetTransaction().GetBranchHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
-	}
-
-	// Force release Tag, Address, UnconfirmedTx since its not needed for solidification/confirmation
-	StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
-
-	StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
-
 	// log.Print("アドレス")
 	// log.Println(cachedTx.GetTransaction().GetAddress())
 	// log.Println(string(cachedTx.GetTransaction().GetAddress()))
@@ -325,33 +310,50 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	// log.Println(cachedTx.GetTransaction().Tx.Tag)
 	// log.Print("金額")
 	// log.Println(cachedTx.GetTransaction().Tx.Value)
-
-	file, err := os.OpenFile("/home/mash/hornet/Transactiondata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
-	if err != nil {
-		log.Fatal(err) //ファイルが開けなかったときエラー出力
-	}
-	defer file.Close()
+	/*
+		file, err := os.OpenFile("/home/mash/hornet/Transactiondata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+		if err != nil {
+			log.Fatal(err) //ファイルが開けなかったときエラー出力
+		}
+		defer file.Close()
+	*/
 	txHash := string(cachedTx.GetTransaction().Tx.Hash)
 	txAddress := string(cachedTx.GetTransaction().Tx.Address)
 	txTag := cachedTx.GetTransaction().Tx.Tag
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
+	log.Println("createDBへの引数")
 	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
-	create_db(txBundle, txHash, txAddress, txTag, txValue)
-	cngValue := checkDB(txBundle, txHash)
-	log.Println(cngValue)
+	createDB(txBundle, txHash, txAddress, txTag, txValue)
+	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
+	log.Println(isCancel)
 	log.Println("が返ってきた")
 
-	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
-	// This is only used to delete unconfirmed transactions from the database at pruning
-	if !requested {
-		StoreUnconfirmedTx(latestMilestoneIndex, cachedTx.GetTransaction().GetTxHash()).Release(true)
-	}
+	if isCancel == false {
+		// Store the tx in the bundleTransactionsStorage
+		StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
 
-	// If the transaction is part of a milestone, the bundle must be created here
-	// Otherwise, bundles are created if tailTx becomes solid
-	if IsMaybeMilestoneTx(cachedTx.Retain()) { // tx pass +1
-		tryConstructBundle(cachedTx.Retain(), false)
+		StoreApprover(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
+		if !bytes.Equal(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetBranchHash()) {
+			StoreApprover(cachedTx.GetTransaction().GetBranchHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
+		}
+
+		// Force release Tag, Address, UnconfirmedTx since its not needed for solidification/confirmation
+		StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
+
+		StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
+
+		// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
+		// This is only used to delete unconfirmed transactions from the database at pruning
+		if !requested {
+			StoreUnconfirmedTx(latestMilestoneIndex, cachedTx.GetTransaction().GetTxHash()).Release(true)
+		}
+
+		// If the transaction is part of a milestone, the bundle must be created here
+		// Otherwise, bundles are created if tailTx becomes solid
+		if IsMaybeMilestoneTx(cachedTx.Retain()) { // tx pass +1
+			tryConstructBundle(cachedTx.Retain(), false)
+		}
 	}
 
 	return cachedTx, false

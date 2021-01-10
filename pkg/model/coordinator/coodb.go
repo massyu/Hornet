@@ -35,7 +35,7 @@ type Tsc struct {
 }
 
 func createCoodb(txIndex int, txTag string, txBundle string) {
-	log.Println("create_coodb開始")
+	log.Println("createCoodb開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
 
@@ -72,7 +72,7 @@ func createCoodb(txIndex int, txTag string, txBundle string) {
 	// Connection をクローズする。(defer で閉じるのが Golang の作法)
 	defer DbConnection2.Close()
 
-	// 今のhashを引数に持ってきて問い合わせを行い、valueを読みだす
+	// 今のbundleを引数に持ってきて問い合わせを行い、valueを読みだす
 	cmd2 := "SELECT * FROM tsc where bundle = ?"
 	// row = DbConnection.QueryRow(cmd, txHash)
 	rows, _ := DbConnection2.Query(cmd2, txBundle)
@@ -99,6 +99,7 @@ func createCoodb(txIndex int, txTag string, txBundle string) {
 		bg = append(bg, b)
 	}
 
+	log.Println("bundleに一致するTransaction一覧を出力")
 	var txHash string
 	var txAddress string
 	var txValue int
@@ -116,42 +117,40 @@ func createCoodb(txIndex int, txTag string, txBundle string) {
 		}
 		fmt.Println(txIndex, b.thash, b.address, b.bundle, b.value)
 	}
-	log.Println("bundleに一致するTransaction一覧")
-
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	/*
-		/////////////////////////////////////////////////////////////////////////////////////
-		// ここから挿入したデータの一覧を出力する処理
-		// マルチプルセレクト(今度は、_ ではなく、rows)
-		cmd3 := "SELECT * FROM coomile where mindex = ?"
-		rows, _ := DbConnection3.Query(cmd3, txIndex)
-
-		defer rows.Close()
-
-		// データ保存領域を確保
-		var bg []Coomile
-		var nextCount int
-		nextCount = 0
-		for rows.Next() {
-			var b Coomile
-			// Scan にて、struct のアドレスにデータを入れる
-			err := rows.Scan(&b.bundle, &b.thash, &b.address, &b.tag, &b.value)
-			// エラーハンドリング(共通関数にした方がいいのかな)
-			if err != nil {
-				log.Println(err)
-			}
-			// データ取得
-			bg = append(bg, b)
-		}
-
-		// valueの加算処理
-		for _, b := range bg {
-			fmt.Println(b.mindex, b.thash, b.address, b.bundle, b.value)
-		}
-		log.Println("bundleに一致するTransaction一覧")
-		/////////////////////////////////////////////////////////////////////////////////////
-	*/
-
-	log.Println("create_coodb")
+	log.Println("createCoodb終了")
 }
+
+/*
+	/////////////////////////////////////////////////////////////////////////////////////
+	// ここから挿入したデータの一覧を出力する処理
+	// マルチプルセレクト(今度は、_ ではなく、rows)
+	cmd3 := "SELECT * FROM coomile where mindex = ?"
+	rows, _ := DbConnection3.Query(cmd3, txIndex)
+
+	defer rows.Close()
+
+	// データ保存領域を確保
+	var bg []Coomile
+	var nextCount int
+	nextCount = 0
+	for rows.Next() {
+		var b Coomile
+		// Scan にて、struct のアドレスにデータを入れる
+		err := rows.Scan(&b.bundle, &b.thash, &b.address, &b.tag, &b.value)
+		// エラーハンドリング(共通関数にした方がいいのかな)
+		if err != nil {
+			log.Println(err)
+		}
+		// データ取得
+		bg = append(bg, b)
+	}
+
+	// valueの加算処理
+	for _, b := range bg {
+		fmt.Println(b.mindex, b.thash, b.address, b.bundle, b.value)
+	}
+	log.Println("bundleに一致するTransaction一覧")
+	/////////////////////////////////////////////////////////////////////////////////////
+*/
