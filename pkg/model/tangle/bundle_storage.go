@@ -327,10 +327,10 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	log.Println("createDB呼び出し")
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
-	isCancel, err := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
-	if err != nil {
+	isCancel, err2 := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
+	if err2 != nil {
 		log.Println("エラー")
-		fmt.Println("err", err)
+		fmt.Println("err", err2)
 	}
 	log.Println(isCancel)
 	log.Println("が返ってきた")
