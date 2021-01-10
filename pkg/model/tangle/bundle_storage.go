@@ -316,6 +316,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 			log.Fatal(err) //ファイルが開けなかったときエラー出力
 		}
 		defer file.Close()
+		fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 	*/
 	txHash := string(cachedTx.GetTransaction().Tx.Hash)
 	txAddress := string(cachedTx.GetTransaction().Tx.Address)
@@ -323,7 +324,6 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	log.Println("createDBへの引数")
-	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
 	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	log.Println(isCancel)
