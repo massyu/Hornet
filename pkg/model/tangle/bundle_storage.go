@@ -331,8 +331,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
 	isCancel, err2 := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	if err2 != nil {
-		log.Warnf("Received shutdown request - waiting (max %d seconds) to finish processing ...", waitToKillTimeInSeconds)
-
+		const waitToKillTimeInSeconds = 300
 		go func() {
 			start := time.Now()
 			for x := range time.Tick(1 * time.Second) {
@@ -345,7 +344,6 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 						processList = "(" + strings.Join(runningBackgroundWorkers, ", ") + ") "
 					}
 
-					log.Warnf("Received shutdown request - waiting (max %d seconds) to finish processing %s...", waitToKillTimeInSeconds-int(secondsSinceStart), processList)
 				} else {
 					log.Fatal("Background processes did not terminate in time! Forcing shutdown ...")
 				}
