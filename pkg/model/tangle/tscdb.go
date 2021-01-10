@@ -136,8 +136,6 @@ func checkHashForCooDB(txHash string) bool {
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	var cngValue int
-	cngValue = 0
 	fmt.Println(count)
 	if count == 0 {
 		log.Println("normal transaction")
