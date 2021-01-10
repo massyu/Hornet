@@ -318,6 +318,8 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 		defer file.Close()
 		fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 	*/
+	log.Print("DBに登録するハッシュ")
+	log.Println(cachedTx.GetTransaction().Tx.Hash)
 	txHash := string(cachedTx.GetTransaction().Tx.Hash)
 	txAddress := string(cachedTx.GetTransaction().Tx.Address)
 	txTag := cachedTx.GetTransaction().Tx.Tag
