@@ -327,26 +327,30 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	log.Println("createDB呼び出し")
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
-	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
+	isCancel, err := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
+	if err != nil {
+		log.Println("エラー")
+		fmt.Println("err", err)
+	}
 	log.Println(isCancel)
 	log.Println("が返ってきた")
 
-	if isCancel == false {
-		log.Println("Transaction処理を行う")
-
-		// Store the tx in the bundleTransactionsStorage
-		StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
-
-		StoreApprover(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
-		if !bytes.Equal(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetBranchHash()) {
-			StoreApprover(cachedTx.GetTransaction().GetBranchHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
-		}
-
-		// Force release Tag, Address, UnconfirmedTx since its not needed for solidification/confirmation
-		StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
-
-		StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
+	if isCancel == true {
+		log.Println("Transaction処理のキャンセル")
 	}
+	// Store the tx in the bundleTransactionsStorage
+	StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
+
+	StoreApprover(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
+	if !bytes.Equal(cachedTx.GetTransaction().GetTrunkHash(), cachedTx.GetTransaction().GetBranchHash()) {
+		StoreApprover(cachedTx.GetTransaction().GetBranchHash(), cachedTx.GetTransaction().GetTxHash()).Release(forceRelease)
+	}
+
+	// Force release Tag, Address, UnconfirmedTx since its not needed for solidification/confirmation
+	StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
+
+	StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
+
 	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
 	// This is only used to delete unconfirmed transactions from the database at pruning
 	if !requested {
