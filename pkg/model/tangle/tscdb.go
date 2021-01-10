@@ -8,7 +8,6 @@ import (
 	"strconv"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/pkg/errors"
 )
 
 // DB Path(相対パスでも大丈夫かと思うが、筆者の場合、絶対パスでないと実行できなかった)
@@ -103,7 +102,7 @@ func createDB(txBundle string, txHash string, txAddress string, txTag string, tx
 }
 
 //CoodbにtxHashが存在するかどうかチェック
-func checkHashForCooDB(txHash string) (bool, error) {
+func checkHashForCooDB(txHash string) bool {
 	log.Println("checkHashForCooDB開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
@@ -140,15 +139,15 @@ func checkHashForCooDB(txHash string) (bool, error) {
 	if count == 0 {
 		log.Println("normal transaction")
 		log.Println("checkHashForCooDB終了")
-		return false, nil
+		return false
 
 	} else {
 		log.Println("iscanselled transaction")
 		log.Println("checkHashForCooDB終了")
-		return true, errors.New("無効化された取引です")
+		return true
 
 	}
-	return false, nil
+	return false
 }
 
 func checkDBForBalances(txHash string) int {

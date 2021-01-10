@@ -5,7 +5,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"time"
 
@@ -319,6 +318,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 		defer file.Close()
 		fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 	*/
+
 	log.Print("DBに登録するハッシュ")
 	log.Println(string(cachedTx.GetTransaction().Tx.Hash))
 	txHash := string(cachedTx.GetTransaction().Tx.Hash)
@@ -327,18 +327,11 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	log.Println("createDB呼び出し")
-	isCancel, err2 := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
-	if err2 != nil {
-		os.Exit(1)
-		fmt.Println("err", err2)
-	}
+	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	log.Println(isCancel)
 	log.Println("が返ってきた")
 	createDB(txBundle, txHash, txAddress, txTag, txValue)
 
-	if isCancel == true {
-		log.Println("Transaction処理のキャンセル")
-	}
 	// Store the tx in the bundleTransactionsStorage
 	StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
 
@@ -350,7 +343,12 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	// Force release Tag, Address, UnconfirmedTx since its not needed for solidification/confirmation
 	StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
 
-	StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
+	if isCancel == true {
+		StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), false).Release(true)
+		log.Println("Transaction処理のキャンセル")
+	} else {
+		StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsValue()).Release(true)
+	}
 
 	// Store only non-requested transactions, since all requested transactions are confirmed by a milestone anyway
 	// This is only used to delete unconfirmed transactions from the database at pruning
