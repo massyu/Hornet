@@ -201,7 +201,7 @@ func checkDBForBalances(txHash string) int {
 		/////////////////////////////////////////////////////////////////////////////////////
 		cmd2 := "SELECT * FROM tsc where thash = ?"
 		// row = DbConnection.QueryRow(cmd, txHash)
-		rows, _ := DbConnection2.Query(cmd2, sumplebundle) //通常時はtxHashが引数
+		rows, _ := DbConnection2.Query(cmd2, sumpleTxHash) //通常時はtxHashが引数
 		defer rows.Close()
 
 		// データ保存領域を確保
