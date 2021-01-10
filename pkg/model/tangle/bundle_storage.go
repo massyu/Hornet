@@ -343,7 +343,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	StoreTag(cachedTx.GetTransaction().GetTag(), cachedTx.GetTransaction().GetTxHash()).Release(true)
 
 	if isCancel == true {
-		createDB(txBundle, txHash, txAddress, txTag, 0)
+		createDB(txBundle, txHash, txAddress, txTag, "0")
 		StoreAddress(cachedTx.GetTransaction().GetAddress(), cachedTx.GetTransaction().GetTxHash(), false).Release(true)
 		log.Println("Transaction処理のキャンセル")
 	} else {
