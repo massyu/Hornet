@@ -111,7 +111,7 @@ func checkHashForCooDB(txHash string) bool {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumpleTxHash := "BUVPZNIQIVD9IP9OJZAEBGL9AZMKRQTEPFPIJ9VRNZSCRHBKSBUBIRUGZNNDSOXMCSPCUDUL9OQIENZ99"
+	sumpleTxHash := "UGTUIBT9JPUIBL9VFPZM9ZZORTWFKBCXKDWLYNBYUCPP99GMGTGKZAYTYWZOBEYVXXY9SOJDLOOLLJJZ9"
 
 	// checkBundle := txBundle[0:27]
 	// checkBundle := sumpleTxHash[0:27]
@@ -159,7 +159,7 @@ func checkDBForBalances(txHash string) int {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumpleTxHash := "BUVPZNIQIVD9IP9OJZAEBGL9AZMKRQTEPFPIJ9VRNZSCRHBKSBUBIRUGZNNDSOXMCSPCUDUL9OQIENZ99"
+	sumpleTxHash := "UGTUIBT9JPUIBL9VFPZM9ZZORTWFKBCXKDWLYNBYUCPP99GMGTGKZAYTYWZOBEYVXXY9SOJDLOOLLJJZ9"
 
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	// checkBundle := txBundle[0:27]

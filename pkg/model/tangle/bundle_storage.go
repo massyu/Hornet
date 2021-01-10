@@ -332,7 +332,7 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	log.Println("が返ってきた")
 
 	if isCancel == false {
-		log.Println("Transaction処理を行わない")
+		log.Println("Transaction処理を行う")
 
 		// Store the tx in the bundleTransactionsStorage
 		StoreBundleTransaction(cachedTx.GetTransaction().GetBundleHash(), cachedTx.GetTransaction().GetTxHash(), cachedTx.GetTransaction().IsTail()).Release(forceRelease)
