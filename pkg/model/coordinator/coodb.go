@@ -110,12 +110,13 @@ func createCoodb(txIndex int, txTag string, txBundle string) {
 		txValue = b.value
 		cmd = "INSERT INTO coomile (mindex, thash, address, bundle, value) VALUES (?, ?, ?, ?, ?)"
 		_, err = DbConnection.Exec(cmd, txIndex, txHash, txAddress, txBundle, txValue)
+		log.Println("coomileにデータ挿入")
+		fmt.Println(txIndex, b.thash, b.address, b.bundle, b.value)
 
 		if err != nil {
 			// golang には、try-catch がない。nil か否かで判定
 			log.Fatalln(err)
 		}
-		fmt.Println(txIndex, b.thash, b.address, b.bundle, b.value)
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 
