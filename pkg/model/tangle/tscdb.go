@@ -103,7 +103,7 @@ func createDB(txBundle string, txHash string, txAddress string, txTag string, tx
 }
 
 //CoodbにtxHashが存在するかどうかチェック
-func checkHashForCooDB(txHash string) bool, error {
+func checkHashForCooDB(txHash string) (bool, error) {
 	log.Println("checkHashForCooDB開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
