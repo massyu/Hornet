@@ -77,8 +77,8 @@ func createDB(txBundle string, txHash string, txAddress string, txTag string, tx
 	//挿入したデータの一覧を出力する処理
 	/////////////////////////////////////////////////////////////////////////////////////
 	// マルチプルセレクト(今度は、_ ではなく、rows)
-	cmd = "SELECT * FROM tsc where bundle = ?"
-	row := DbConnection.QueryRow(cmd, txBundle)
+	cmd = "SELECT * FROM tsc where thash = ?"
+	row := DbConnection.QueryRow(cmd, txHash)
 
 	// データ保存領域を確保
 	var b Tsc
