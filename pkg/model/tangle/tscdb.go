@@ -111,16 +111,15 @@ func checkHashForCooDB(txHash string) bool {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumplebundle := "YKBOJAUHGA9FQWYXBHRDQPAGNYGO9LIFAINJECFUEBUZTO9JHUEJWFMJYFFEGKUHYWDOOIYAGUKZLBHSA"
+	sumpleTxHash := "EIYMPHXE9PBMTMSGRAGDQ9CBQIZKSDWTLALBPKROQGZXBQWREEFRYCBSJGIWJCRFQCQR9PBKCJR9EBEZ9"
 
-	// マルチプルセレクト(今度は、_ ではなく、rows)
 	// checkBundle := txBundle[0:27]
-	checkBundle := sumplebundle[0:27]
-	log.Println("checkBundle is " + checkBundle)
+	// checkBundle := sumpleTxHash[0:27]
+	// log.Println("checkBundle is " + checkBundle)
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	cmd := "SELECT COUNT(*) FROM coomile where thash = ?"
-	row := DbConnection.QueryRow(cmd, checkBundle)
+	row := DbConnection.QueryRow(cmd, sumpleTxHash)
 
 	var count int
 	log.Println("取り消された取引がDB内に存在するか確認中……")
@@ -160,7 +159,7 @@ func checkDBForBalances(txHash string) int {
 	defer DbConnection.Close()
 
 	// 出力確認テスト
-	sumplebundle := "YKBOJAUHGA9FQWYXBHRDQPAGNYGO9LIFAINJECFUEBUZTO9JHUEJWFMJYFFEGKUHYWDOOIYAGUKZLBHSA"
+	sumplehash := "EIYMPHXE9PBMTMSGRAGDQ9CBQIZKSDWTLALBPKROQGZXBQWREEFRYCBSJGIWJCRFQCQR9PBKCJR9EBEZ9"
 
 	// マルチプルセレクト(今度は、_ ではなく、rows)
 	// checkBundle := txBundle[0:27]
