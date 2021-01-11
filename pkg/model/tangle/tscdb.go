@@ -103,7 +103,7 @@ func createDB(txBundle string, txHash string, txAddress string, txTag string, tx
 
 //CoodbにtxHashが存在するかどうかチェック
 func checkHashForCooDB(txHash string) bool {
-	log.Println("checkHashForCooDB開始")
+	// log.Println("checkHashForCooDB開始")
 	// Open(driver,  sql 名(任意の名前))
 	DbConnection, _ := sql.Open("sqlite3", coodbPath)
 
@@ -112,10 +112,6 @@ func checkHashForCooDB(txHash string) bool {
 
 	// 出力確認テスト
 	sumpleTxHash := "JFFHUWGODOUZIIKRLORCDPGU9PSDDTCSZHBVZMNYYBVTXKBJADSAYVGLNZMJYCGAYSZUZNSWUQYOHXZZ9"
-
-	// checkBundle := txBundle[0:27]
-	// checkBundle := sumpleTxHash[0:27]
-	// log.Println("checkBundle is " + checkBundle)
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	cmd := "SELECT COUNT(*) FROM coomile where thash = ?"
@@ -138,12 +134,12 @@ func checkHashForCooDB(txHash string) bool {
 	fmt.Println(count)
 	if count == 0 {
 		log.Println("normal transaction")
-		log.Println("checkHashForCooDB終了")
+		// log.Println("checkHashForCooDB終了")
 		return false
 
 	} else {
 		log.Println("iscanselled transaction")
-		log.Println("checkHashForCooDB終了")
+		// log.Println("checkHashForCooDB終了")
 		return true
 
 	}
