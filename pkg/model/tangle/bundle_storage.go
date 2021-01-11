@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -310,14 +311,13 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	// log.Println(cachedTx.GetTransaction().Tx.Tag)
 	// log.Print("金額")
 	// log.Println(cachedTx.GetTransaction().Tx.Value)
-	/*
-		file, err := os.OpenFile("/home/mash/hornet/Transactiondata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
-		if err != nil {
-			log.Fatal(err) //ファイルが開けなかったときエラー出力
-		}
-		defer file.Close()
-		fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
-	*/
+
+	file, err := os.OpenFile("/home/mash/hornet/Transactiondata.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	if err != nil {
+		log.Fatal(err) //ファイルが開けなかったときエラー出力
+	}
+	defer file.Close()
+	fmt.Fprintln(file, txBundle+","+txAddress+","+txTag+","+txValue)
 
 	log.Print("DBに登録するハッシュ")
 	log.Println(string(cachedTx.GetTransaction().Tx.Hash))
@@ -326,11 +326,18 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txTag := cachedTx.GetTransaction().Tx.Tag
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
+
 	log.Println("createDB呼び出し")
 	start := time.Now()
 	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
 	end := time.Now()
 	fmt.Printf("%f秒\n", (end.Sub(start)).Seconds())
+	file, err := os.OpenFile("/home/mash/hornet/Time.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	if err != nil {
+		log.Fatal(err) //ファイルが開けなかったときエラー出力
+	}
+	defer file.Close()
+	fmt.Fprintln(file, (end.Sub(start)).Seconds())
 	log.Println(isCancel)
 	log.Println("が返ってきた")
 
