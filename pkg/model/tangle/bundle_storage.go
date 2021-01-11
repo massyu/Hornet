@@ -327,7 +327,10 @@ func AddTransactionToStorage(hornetTx *hornet.Transaction, latestMilestoneIndex 
 	txValue := strconv.FormatInt(cachedTx.GetTransaction().Tx.Value, 10)
 	txBundle := string(cachedTx.GetTransaction().Tx.Bundle)
 	log.Println("createDB呼び出し")
+	start := time.Now()
 	isCancel := checkHashForCooDB(txHash) //coodbにtxHashがあったらそのvalueを返す
+	end := time.Now()
+	fmt.Printf("%f秒\n", (end.Sub(start)).Seconds())
 	log.Println(isCancel)
 	log.Println("が返ってきた")
 
